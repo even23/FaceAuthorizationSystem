@@ -8,6 +8,7 @@ App::App()
 	photoDao = new PhotoDAO();
 	imageManager = new ImageManager(photoDao);
 	faceDetectionManager = new FaceDetectionManager();
+	videoCaptureManager = new VideoCaptureManager(faceDetectionManager, imageManager);
 	faceRecognitionManager = new FaceRecognitionManager(userDao, photoDao, imageManager);
 	activeUser = &*(userDao->getUsers()->begin());
 	takenPhoto = Mat();

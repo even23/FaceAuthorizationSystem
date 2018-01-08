@@ -53,6 +53,10 @@ bool ImageManager::processAndSaveImage(Mat& image, User* user)
 	return imwrite(path + "\\" + filename, result);
 }
 
+/*
+* Copyright (c) 2012. Philipp Wagner <bytefish[at]gmx[dot]de>.
+* Released to public domain under terms of the BSD Simplified license.
+*/
 Mat ImageManager::tan_triggs_preprocessing(InputArray src,
 	float alpha, float tau, float gamma, int sigma0,
 	int sigma1) {
@@ -107,6 +111,30 @@ Mat ImageManager::tan_triggs_preprocessing(InputArray src,
 		I = tau * I;
 	}
 	return I;
+}
+
+Mat ImageManager::convertToGrayScale(Mat & image)
+{
+	Mat grayFrame = image.clone();
+	if (image.channels() != 1) {
+		cvtColor(grayFrame, grayFrame, CV_BGR2GRAY);
+	}
+	return grayFrame;
+}
+
+Mat ImageManager::equalizeHistogram(Mat & image)
+{
+	Mat result = image.clone();
+	equalizeHist(result, result);
+	return result;
+}
+
+Mat ImageManager::tanTriggsPreprocessing(Mat & image)
+{
+	Mat result = tan_triggs_preprocessing(image);
+	normalize(result, result, 0.0, 1.0, CV_MINMAX, CV_64F);
+	result.convertTo(result, CV_8U, 255, 0);
+	return result;
 }
 
 Mat ImageManager::resizeImage(Mat & image, Size size)

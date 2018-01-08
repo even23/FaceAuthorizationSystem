@@ -4,6 +4,7 @@
 #include "FaceDetectionManager.h"
 #include "ImageManager.h"
 #include "LoginSession.h"
+#include "VideoCaptureManager.h"
 
 class App
 {
@@ -31,6 +32,7 @@ private:
 	ImageManager* imageManager;
 	User* activeUser;
 	LoginSession* loginSession;
+	VideoCaptureManager* videoCaptureManager;
 	cv::Mat takenPhoto;
 };
 

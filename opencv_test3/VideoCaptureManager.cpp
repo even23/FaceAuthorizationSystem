@@ -2,12 +2,12 @@
 
 
 
-VideoCaptureManager::VideoCaptureManager(FaceDetectionManager* _faceDetectionManager)
+VideoCaptureManager::VideoCaptureManager(FaceDetectionManager* _faceDetectionManager, ImageManager* _imageManager)
 {
 	faceDetectionManager = _faceDetectionManager;
 	isStarted = false;
 
-	withGrayscale = false;
+	withGrayScale = false;
 	withHistogramEqualization = false;
 	withTanTriggs = false;
 	withFaceDetection = true;
@@ -19,8 +19,14 @@ void VideoCaptureManager::display(Mat frame)
 
 	std::vector<Rect>* faces;
 	Mat frame_result = frame.clone();
-	if  (withGrayscale == true) {
-		//frame_result = processImage(frame);
+	if  (withGrayScale == true) {
+		imageManager->convertToGrayScale(frame_result);
+	}
+	if (withHistogramEqualization == true) {
+		imageManager->equalizeHistogram(frame_result);
+	}
+	if (withTanTriggs == true) {
+		imageManager->tanTriggsPreprocessing(frame_result);
 	}
 	//-- Detect faces
 	faces = faceDetectionManager->detectFaces(frame_result);
@@ -30,9 +36,6 @@ void VideoCaptureManager::display(Mat frame)
 		Point a(faces->at(i).x, faces->at(i).y);
 		Point b(faces->at(i).x + faces->at(i).width, faces->at(i).y + faces->at(i).height);
 		rectangle(frame_result, a, b, Scalar(11, 215, 18), 2, 8, 0);
-
-		//Mat faceROI = frame_result(faces[i]);
-		std::vector<Rect> eyes;
 	}
 	//-- Show what you got
 	imshow("Camera", frame_result);

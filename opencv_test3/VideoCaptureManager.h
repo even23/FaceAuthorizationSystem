@@ -6,6 +6,7 @@
 #include "opencv2/objdetect.hpp"
 
 #include "FaceDetectionManager.h"
+#include "ImageManager.h"
 
 #include <iostream>
 #include <stdio.h>
@@ -17,7 +18,7 @@ using namespace face;
 class VideoCaptureManager
 {
 public:
-	VideoCaptureManager(FaceDetectionManager* faceDetectionManager);
+	VideoCaptureManager(FaceDetectionManager* _aceDetectionManager, ImageManager* _imageManager);
 
 	void display(Mat frame);
 	void startCamera();
@@ -25,12 +26,13 @@ public:
 private:
 	VideoCapture videoCapture;
 	FaceDetectionManager* faceDetectionManager;
+	ImageManager* imageManager;
 
 	Mat currentFrame;
 
 	bool isStarted;
 
-	bool withGrayscale;
+	bool withGrayScale;
 	bool withHistogramEqualization;
 	bool withTanTriggs;
 	bool withFaceDetection;

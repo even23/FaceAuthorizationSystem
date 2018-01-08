@@ -34,6 +34,13 @@ public:
 		float alpha = 0.1, float tau = 10.0, float gamma = 0.2, int sigma0 = 1,
 		int sigma1 = 2);
 
+	Mat convertToGrayScale(Mat& image);
+
+	Mat equalizeHistogram(Mat& image);
+
+	Mat tanTriggsPreprocessing(Mat & image);
+
+
 	Mat resizeImage(Mat& image, Size size = Size(92, 112));
 
 	//Mat resizeToWindow(Mat src) {	// Rezise image method
