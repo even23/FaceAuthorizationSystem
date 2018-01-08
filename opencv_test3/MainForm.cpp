@@ -9,4 +9,5 @@ void Main() {
 	Application::SetCompatibleTextRenderingDefault(false);
 	FaceRecognitionSystem::MainWindow window;
 	Application::Run(%window);
+	Application::Exit();
 }

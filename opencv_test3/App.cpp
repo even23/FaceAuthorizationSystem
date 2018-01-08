@@ -8,10 +8,10 @@ App::App()
 	photoDao = new PhotoDAO();
 	imageManager = new ImageManager(photoDao);
 	faceDetectionManager = new FaceDetectionManager();
-	videoCaptureManager = new VideoCaptureManager(faceDetectionManager, imageManager);
+	videoCaptureManager = gcnew VideoCaptureManager(faceDetectionManager, imageManager);
 	faceRecognitionManager = new FaceRecognitionManager(userDao, photoDao, imageManager);
 	activeUser = &*(userDao->getUsers()->begin());
-	takenPhoto = Mat();
+	takenPhoto = new Mat();
 	trainRecognizer();
 }
 
@@ -90,15 +90,15 @@ bool App::login(string login, string typedPassword) {
 	if (user == nullptr) {
 		return false;
 	}
-	if (typedPassword.size() == 0 && takenPhoto.rows == 0) {
+	if (typedPassword.size() == 0 && takenPhoto->rows == 0) {
 		return false;
 	}
 	else if (typedPassword.size() > 0 && typedPassword == user->getPassword()) {
 		//takenPhoto.release();
 		return true;
 	}
-	else if (takenPhoto.rows != 0) {
-		int prediction = predict(takenPhoto);
+	else if (takenPhoto->rows != 0) {
+		int prediction = predict(*takenPhoto);
 		//int prediction = predict(faceRecognitionManager->testImages->at(0));
 		if (prediction == user->getId()) {
 			//takenPhoto.release();
@@ -118,7 +118,7 @@ bool App::takePhoto(Mat frame, Mat& result)
 	if (faceDetectionManager->getFaces()->size() == 0)
 	{
 		cout << "No faces found. The detector did not find any faces!";
-		takenPhoto.release();
+		takenPhoto->release();
 		return false;
 	}
 	else
@@ -128,8 +128,8 @@ bool App::takePhoto(Mat frame, Mat& result)
 		{
 			result = frame(*face);
 			faceRegion = result.clone();
-			takenPhoto = imageManager->processImage(faceRegion);
-			result = imageManager->resizeImage(faceRegion, Size(184, 224));
+			takenPhoto = &imageManager->processImage(faceRegion);
+			//result = imageManager->resizeImage(faceRegion, Size(184, 224));
 		}
 		return true;
 	}

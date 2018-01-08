@@ -9,7 +9,6 @@ mat2picture::mat2picture()
 {
 }
 System::Drawing::Bitmap^ mat2picture::Mat2Bimap(cv::Mat & colorImage) {
-	//System::Drawing::Graphics^ graphics = control->CreateGraphics();
 	System::IntPtr ptr(colorImage.ptr());
 	System::Drawing::Bitmap^ b;
 	switch (colorImage.type())

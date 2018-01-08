@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="CameraSettingsForm.cpp" />
     <ClCompile Include="FaceDetectionManager.cpp" />
     <ClCompile Include="FaceRecognitionManager.cpp" />
     <ClCompile Include="ImageManager.cpp" />
@@ -160,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="CameraSettingsForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="DAO.h" />
     <ClInclude Include="FaceDetectionManager.h" />
     <ClInclude Include="FaceRecognitionManager.h" />
@@ -181,6 +185,9 @@
     <ClInclude Include="VideoCaptureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CameraSettingsForm.resx">
+      <DependentUpon>CameraSettingsForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>
     </EmbeddedResource>

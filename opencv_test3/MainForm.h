@@ -1,5 +1,6 @@
 #pragma once
 #include "LoginForm.h"
+#include "CameraSettingsForm.h"
 #include "App.h"
 
 namespace FaceRecognitionSystem {
@@ -20,7 +21,7 @@ namespace FaceRecognitionSystem {
 		MainWindow(void)
 		{
 			InitializeComponent();
-			app = new App();
+			app = gcnew App();
 			//
 			//TODO: Add the constructor code here
 			//
@@ -38,9 +39,10 @@ namespace FaceRecognitionSystem {
 			}
 		}
 	private: System::Windows::Forms::Button^  loginButton;
-	private: System::Windows::Forms::Button^  createButton;
+	private: System::Windows::Forms::Button^  cameraButton;
+
 	private: System::Windows::Forms::Button^  exitButton;
-	private: App* app;
+	private: App^ app;
 	protected:
 
 	protected:
@@ -59,7 +61,7 @@ namespace FaceRecognitionSystem {
 		void InitializeComponent(void)
 		{
 			this->loginButton = (gcnew System::Windows::Forms::Button());
-			this->createButton = (gcnew System::Windows::Forms::Button());
+			this->cameraButton = (gcnew System::Windows::Forms::Button());
 			this->exitButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
@@ -76,17 +78,18 @@ namespace FaceRecognitionSystem {
 			this->loginButton->UseVisualStyleBackColor = true;
 			this->loginButton->Click += gcnew System::EventHandler(this, &MainWindow::loginButton_Click);
 			// 
-			// createButton
+			// cameraButton
 			// 
-			this->createButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+			this->cameraButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->createButton->Location = System::Drawing::Point(47, 109);
-			this->createButton->Name = L"createButton";
-			this->createButton->Size = System::Drawing::Size(154, 42);
-			this->createButton->TabIndex = 1;
-			this->createButton->Text = L"Utwórz konto";
-			this->createButton->UseVisualStyleBackColor = true;
+			this->cameraButton->Location = System::Drawing::Point(47, 109);
+			this->cameraButton->Name = L"cameraButton";
+			this->cameraButton->Size = System::Drawing::Size(154, 42);
+			this->cameraButton->TabIndex = 1;
+			this->cameraButton->Text = L"Ustawienia kamery";
+			this->cameraButton->UseVisualStyleBackColor = true;
+			this->cameraButton->Click += gcnew System::EventHandler(this, &MainWindow::cameraButton_Click);
 			// 
 			// exitButton
 			// 
@@ -106,7 +109,7 @@ namespace FaceRecognitionSystem {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(249, 261);
 			this->Controls->Add(this->exitButton);
-			this->Controls->Add(this->createButton);
+			this->Controls->Add(this->cameraButton);
 			this->Controls->Add(this->loginButton);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->MaximizeBox = false;
@@ -126,7 +129,15 @@ namespace FaceRecognitionSystem {
 		this->Show();
 	}
 private: System::Void MainWindow_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
+	//SendKeys();
+	//keybd_event(VK_TAB, 0, 0, 0);
 	delete app;
+}
+private: System::Void cameraButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->Hide();
+	CameraSettingsForm^ cameraSettingsForm = gcnew CameraSettingsForm(app);
+	cameraSettingsForm->ShowDialog();
+	this->Show();
 }
 };
 }

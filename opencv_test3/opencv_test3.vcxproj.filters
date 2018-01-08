@@ -95,6 +95,9 @@
     <ClCompile Include="VideoCaptureManager.cpp">
       <Filter>Source Files\Backend\VideoCapture</Filter>
     </ClCompile>
+    <ClCompile Include="CameraSettingsForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="VideoCaptureManager.h">
       <Filter>Source Files\Backend\VideoCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSettingsForm.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

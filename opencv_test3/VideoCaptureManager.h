@@ -15,20 +15,37 @@ using namespace System;
 using namespace cv;
 using namespace face;
 
-class VideoCaptureManager
+ref class VideoCaptureManager
 {
 public:
+	
 	VideoCaptureManager(FaceDetectionManager* _aceDetectionManager, ImageManager* _imageManager);
 
 	void display(Mat frame);
 	void startCamera();
-	Mat getCurrentFrame() { return currentFrame; }
+	Mat* getCurrentFrame() { return currentFrame; }
+
+	bool getWithGrayScale() { return withGrayScale; }
+	bool getWithHistogramEqualization () { return withHistogramEqualization; }
+	bool getWithTanTriggs () { return withTanTriggs; }
+	bool getWithFaceDetection () { return withFaceDetection; }
+
+	void setWithGrayScale(bool a) { withGrayScale = a; }
+	void setWithHistogramEqualization(bool a) { withHistogramEqualization = a; }
+	void setWithTanTriggs(bool a) { withTanTriggs = a; }
+	void setWithFaceDetection(bool a) { withFaceDetection = a; }
+
+	void setIsStarted(bool a) { isStarted = a; }
+
 private:
-	VideoCapture videoCapture;
+	VideoCapture* videoCapture;
 	FaceDetectionManager* faceDetectionManager;
 	ImageManager* imageManager;
 
-	Mat currentFrame;
+	Mat* currentFrame;
+	vector<Mat>* frameBuffer;
+	int pos, newpos;
+	int idx;
 
 	bool isStarted;
 

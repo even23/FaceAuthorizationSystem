@@ -6,7 +6,7 @@
 #include "LoginSession.h"
 #include "VideoCaptureManager.h"
 
-class App
+ref class App
 {
 public:
 	App();
@@ -22,6 +22,8 @@ public:
 
 	bool takePhoto(Mat frame, Mat & result);
 
+	VideoCaptureManager^ getVideoCaptureManager() { return videoCaptureManager; }
+
 private:
 	//VideoCapture capture;
 
@@ -32,7 +34,7 @@ private:
 	ImageManager* imageManager;
 	User* activeUser;
 	LoginSession* loginSession;
-	VideoCaptureManager* videoCaptureManager;
-	cv::Mat takenPhoto;
+	VideoCaptureManager^ videoCaptureManager;
+	Mat* takenPhoto;
 };
 

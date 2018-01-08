@@ -17,6 +17,7 @@ namespace FaceRecognitionSystem {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Threading;
 	using namespace jacky_lib;
 
 	/// <summary>
@@ -25,7 +26,7 @@ namespace FaceRecognitionSystem {
 	public ref class LoginForm : public System::Windows::Forms::Form
 	{
 	public:
-		LoginForm(App* app)
+		LoginForm(App^ app)
 		{
 			InitializeComponent();
 			//
@@ -61,7 +62,7 @@ namespace FaceRecognitionSystem {
 	private: System::Windows::Forms::PictureBox^  photoBox;
 
 	private: System::ComponentModel::IContainer^  components;
-	private: App* app;
+	private: App^ app;
 	private: int a;
 	private:
 		/// <summary>
@@ -185,6 +186,9 @@ namespace FaceRecognitionSystem {
 		}
 #pragma endregion
 	private: System::Void takePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
+		Thread^ cameraThread = gcnew Thread(gcnew ThreadStart(app->getVideoCaptureManager(), &VideoCaptureManager::startCamera));
+		cameraThread->Name = "cameraThread";
+		cameraThread->Start();
 		VideoCapture capture;
 		cv::Mat frame;
 		int c;
