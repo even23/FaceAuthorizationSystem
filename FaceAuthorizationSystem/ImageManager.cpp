@@ -23,9 +23,9 @@ Mat ImageManager::processImage(Mat& image)
 	return result;
 }
 
-bool ImageManager::processAndSaveImage(Mat& image, User* user)
+bool ImageManager::processAndSaveImage(Mat& image, User* user, string& filename, string& path)
 {
-	string path;
+	//string path;
 	if (user != nullptr) {
 		path = directoryPath + to_string(user->getId());
 	}
@@ -39,12 +39,8 @@ bool ImageManager::processAndSaveImage(Mat& image, User* user)
 	//system(folderCreateCommand.c_str());
 
 	Mat result = processImage(image);
-
-	string filename = photoDAO->addPhoto(user);
-	if (user != nullptr) {
-		user->addPhoto();
-	}
-
+	
+	filename = photoDAO->addPhoto(user);
 	return imwrite(path + "\\" + filename, result);
 }
 

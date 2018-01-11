@@ -82,7 +82,7 @@ void FaceRecognitionManager::trainRecognizer()
 {
 	eigenFaceRecognizer->train(*images, *labels);
 	//fisherFaceRecognizer->train(*images, *labels);
-	LBPHFaceRecognizer->train(*images, *labels);
+	//LBPHFaceRecognizer->train(*images, *labels);
 
 }
 
@@ -117,17 +117,17 @@ int FaceRecognitionManager::predict(Mat image)
 
 	eigenFaceRecognizer->predict(image, collector1);
 	//fisherFaceRecognizer->predict(*testImage, collector2);
-	LBPHFaceRecognizer->predict(*testImage, collector3);
+	//LBPHFaceRecognizer->predict(*testImage, collector3);
 	vector<pair<int, double>> res1 = collector1->getResults(true);
 	//computeResults(collector1);
 	//vector<pair<int, double>> res2 = collector2->getResults(true);
 	//computeResults(collector2);
-	vector<pair<int, double>> res3 = collector3->getResults(true);
+	//vector<pair<int, double>> res3 = collector3->getResults(true);
 	//computeResults(collector3);
 
-	//eigenFaceRecognizer->predict(image, predicted_label, predicted_confidence);
+	eigenFaceRecognizer->predict(image, predicted_label, predicted_confidence);
 	//fisherFaceRecognizer->predict(image, predicted_label, predicted_confidence);
-	LBPHFaceRecognizer->predict(*testImage, predicted_label, predicted_confidence);
+	//LBPHFaceRecognizer->predict(*testImage, predicted_label, predicted_confidence);
 
 	//eigenFaceRecognizer->predict(image, collector1);
 	//fisherFaceRecognizer->predict(image, collector2);
@@ -209,6 +209,18 @@ void FaceRecognitionManager::read_csv(vector<Mat>& images, vector<int>& labels, 
 			a++;
 		}
 	}
+}
+
+void FaceRecognitionManager::update()
+{
+	Photo* photo = photoDAO->getPhotos()->back();
+	prepareTrainingExample(photo);
+	eigenFaceRecognizer->train(*images, *labels);
+	vector<Mat> image;
+	vector<int> label;
+	image.push_back(images->back());
+	label.push_back(labels->back());
+	LBPHFaceRecognizer->update(image, label);
 }
 
 void FaceRecognitionManager::test()

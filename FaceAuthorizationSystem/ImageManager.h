@@ -17,7 +17,7 @@ public:
 
 	Mat processImage(Mat& image);
 
-	bool processAndSaveImage(Mat& image, User* user);
+	bool processAndSaveImage(Mat& image, User* user, string& filename, string& directory);
 
 	void convertToGrayScale(Mat& image);
 

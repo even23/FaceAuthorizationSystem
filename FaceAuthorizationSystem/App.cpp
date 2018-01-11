@@ -27,7 +27,7 @@ App::~App()
 	delete userDao;
 }
 
-bool App::savePhoto()
+bool App::savePhoto(string& filename, string& directory)
 {
 	//vector<Rect>* faces = faceDetectionManager->detectAndSaveFaces(frame);
 
@@ -55,8 +55,11 @@ bool App::savePhoto()
 	//}
 	//return true;
 
-	if (takenPhoto != nullptr) {
-		if (imageManager->processAndSaveImage(*takenPhoto, activeUser)) {
+	if (takenPhoto->rows != 0) {
+		if (imageManager->processAndSaveImage(*takenPhoto, activeUser, filename, directory)) {
+			if (activeUser != nullptr) {
+				faceRecognitionManager->update();
+			}
 			return true;
 		}
 	}
@@ -168,7 +171,7 @@ bool App::takePhoto()
 
 void App::removePhoto()
 {
-	if (photoBoxImage != nullptr) {
-		photoBoxImage = nullptr;
+	if (takenPhoto->rows != 0) {
+		takenPhoto->release();
 	}
 }

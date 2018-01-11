@@ -23,7 +23,7 @@ public:
 	vector<Photo*>* getPhotos() { return photos; }
 
 	void addPhoto(int);
-	string addPhoto(User*);
+	string addPhoto(User* user);
 
 private:
 	int nextPhotoId;

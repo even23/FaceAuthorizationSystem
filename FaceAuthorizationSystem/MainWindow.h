@@ -69,8 +69,10 @@ namespace FaceAuthorizationSystem {
 	private: System::Windows::Forms::Label^  passwordLabel;
 	private: System::Windows::Forms::TextBox^  loginTextBox;
 	private: System::Windows::Forms::Label^  loginLabel;
+	private: System::Windows::Forms::TabPage^  accountTab;
 
-	private: System::Windows::Forms::TabPage^  tabPage1;
+
+
 
 
 	private: System::Windows::Forms::TabPage^  welcomeTab;
@@ -105,6 +107,8 @@ namespace FaceAuthorizationSystem {
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Button^  newAccountButton;
+
 
 
 
@@ -160,7 +164,8 @@ namespace FaceAuthorizationSystem {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->helpTab = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->accountTab = (gcnew System::Windows::Forms::TabPage());
+			this->newAccountButton = (gcnew System::Windows::Forms::Button());
 			this->reloadButton = (gcnew System::Windows::Forms::Button());
 			this->deleteAccount = (gcnew System::Windows::Forms::Button());
 			this->saveAccount = (gcnew System::Windows::Forms::Button());
@@ -191,7 +196,7 @@ namespace FaceAuthorizationSystem {
 			this->cameraTab->SuspendLayout();
 			this->loginTab->SuspendLayout();
 			this->infoTab->SuspendLayout();
-			this->tabPage1->SuspendLayout();
+			this->accountTab->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider3))->BeginInit();
@@ -201,19 +206,16 @@ namespace FaceAuthorizationSystem {
 			// 
 			// tabControl1
 			// 
-			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->welcomeTab);
 			this->tabControl1->Controls->Add(this->cameraTab);
 			this->tabControl1->Controls->Add(this->loginTab);
 			this->tabControl1->Controls->Add(this->infoTab);
 			this->tabControl1->Controls->Add(this->helpTab);
-			this->tabControl1->Controls->Add(this->tabPage1);
+			this->tabControl1->Controls->Add(this->accountTab);
 			this->tabControl1->Location = System::Drawing::Point(12, 12);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(377, 349);
+			this->tabControl1->Size = System::Drawing::Size(376, 353);
 			this->tabControl1->TabIndex = 3;
 			this->tabControl1->Selected += gcnew System::Windows::Forms::TabControlEventHandler(this, &MainWindow::tabControl1_Selected);
 			// 
@@ -225,7 +227,7 @@ namespace FaceAuthorizationSystem {
 			this->welcomeTab->Controls->Add(this->pictureBox1);
 			this->welcomeTab->Location = System::Drawing::Point(4, 22);
 			this->welcomeTab->Name = L"welcomeTab";
-			this->welcomeTab->Size = System::Drawing::Size(369, 323);
+			this->welcomeTab->Size = System::Drawing::Size(368, 327);
 			this->welcomeTab->TabIndex = 2;
 			this->welcomeTab->Text = L"Powitanie";
 			this->welcomeTab->UseVisualStyleBackColor = true;
@@ -276,7 +278,7 @@ namespace FaceAuthorizationSystem {
 			this->cameraTab->Location = System::Drawing::Point(4, 22);
 			this->cameraTab->Name = L"cameraTab";
 			this->cameraTab->Padding = System::Windows::Forms::Padding(3);
-			this->cameraTab->Size = System::Drawing::Size(369, 323);
+			this->cameraTab->Size = System::Drawing::Size(368, 327);
 			this->cameraTab->TabIndex = 0;
 			this->cameraTab->Text = L"Kamera";
 			this->cameraTab->UseVisualStyleBackColor = true;
@@ -346,7 +348,7 @@ namespace FaceAuthorizationSystem {
 			this->loginTab->Location = System::Drawing::Point(4, 22);
 			this->loginTab->Name = L"loginTab";
 			this->loginTab->Padding = System::Windows::Forms::Padding(3);
-			this->loginTab->Size = System::Drawing::Size(369, 323);
+			this->loginTab->Size = System::Drawing::Size(368, 327);
 			this->loginTab->TabIndex = 1;
 			this->loginTab->Text = L"Logowanie";
 			this->loginTab->UseVisualStyleBackColor = true;
@@ -363,7 +365,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// passwordTextBox
 			// 
-			this->passwordTextBox->Location = System::Drawing::Point(147, 50);
+			this->passwordTextBox->Location = System::Drawing::Point(140, 50);
 			this->passwordTextBox->Name = L"passwordTextBox";
 			this->passwordTextBox->PasswordChar = '*';
 			this->passwordTextBox->Size = System::Drawing::Size(205, 20);
@@ -372,7 +374,7 @@ namespace FaceAuthorizationSystem {
 			// passwordLabel
 			// 
 			this->passwordLabel->AutoSize = true;
-			this->passwordLabel->Location = System::Drawing::Point(30, 54);
+			this->passwordLabel->Location = System::Drawing::Point(23, 54);
 			this->passwordLabel->Name = L"passwordLabel";
 			this->passwordLabel->Size = System::Drawing::Size(39, 13);
 			this->passwordLabel->TabIndex = 12;
@@ -380,7 +382,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// loginTextBox
 			// 
-			this->loginTextBox->Location = System::Drawing::Point(147, 16);
+			this->loginTextBox->Location = System::Drawing::Point(140, 16);
 			this->loginTextBox->Name = L"loginTextBox";
 			this->loginTextBox->Size = System::Drawing::Size(205, 20);
 			this->loginTextBox->TabIndex = 11;
@@ -388,7 +390,7 @@ namespace FaceAuthorizationSystem {
 			// loginLabel
 			// 
 			this->loginLabel->AutoSize = true;
-			this->loginLabel->Location = System::Drawing::Point(30, 20);
+			this->loginLabel->Location = System::Drawing::Point(23, 20);
 			this->loginLabel->Name = L"loginLabel";
 			this->loginLabel->Size = System::Drawing::Size(105, 13);
 			this->loginLabel->TabIndex = 10;
@@ -401,7 +403,7 @@ namespace FaceAuthorizationSystem {
 			this->infoTab->Controls->Add(this->label5);
 			this->infoTab->Location = System::Drawing::Point(4, 22);
 			this->infoTab->Name = L"infoTab";
-			this->infoTab->Size = System::Drawing::Size(369, 323);
+			this->infoTab->Size = System::Drawing::Size(368, 327);
 			this->infoTab->TabIndex = 3;
 			this->infoTab->Text = L"Info";
 			this->infoTab->UseVisualStyleBackColor = true;
@@ -437,65 +439,78 @@ namespace FaceAuthorizationSystem {
 			// 
 			this->helpTab->Location = System::Drawing::Point(4, 22);
 			this->helpTab->Name = L"helpTab";
-			this->helpTab->Size = System::Drawing::Size(369, 323);
+			this->helpTab->Size = System::Drawing::Size(368, 327);
 			this->helpTab->TabIndex = 4;
 			this->helpTab->Text = L"Pomoc";
 			this->helpTab->UseVisualStyleBackColor = true;
 			// 
-			// tabPage1
+			// accountTab
 			// 
-			this->tabPage1->Controls->Add(this->reloadButton);
-			this->tabPage1->Controls->Add(this->deleteAccount);
-			this->tabPage1->Controls->Add(this->saveAccount);
-			this->tabPage1->Controls->Add(this->surnameTextBox);
-			this->tabPage1->Controls->Add(this->surnameLabel);
-			this->tabPage1->Controls->Add(this->nameTextBox);
-			this->tabPage1->Controls->Add(this->nameLabel);
-			this->tabPage1->Controls->Add(this->passwordAccountTextBox);
-			this->tabPage1->Controls->Add(this->passwordAccountLabel);
-			this->tabPage1->Controls->Add(this->loginAccountTextBox);
-			this->tabPage1->Controls->Add(this->loginAccountLabel);
-			this->tabPage1->Controls->Add(this->logoutButton);
-			this->tabPage1->Location = System::Drawing::Point(4, 22);
-			this->tabPage1->Name = L"tabPage1";
-			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(369, 323);
-			this->tabPage1->TabIndex = 2;
-			this->tabPage1->Text = L"Konto";
-			this->tabPage1->UseVisualStyleBackColor = true;
+			this->accountTab->Controls->Add(this->newAccountButton);
+			this->accountTab->Controls->Add(this->reloadButton);
+			this->accountTab->Controls->Add(this->deleteAccount);
+			this->accountTab->Controls->Add(this->saveAccount);
+			this->accountTab->Controls->Add(this->surnameTextBox);
+			this->accountTab->Controls->Add(this->surnameLabel);
+			this->accountTab->Controls->Add(this->nameTextBox);
+			this->accountTab->Controls->Add(this->nameLabel);
+			this->accountTab->Controls->Add(this->passwordAccountTextBox);
+			this->accountTab->Controls->Add(this->passwordAccountLabel);
+			this->accountTab->Controls->Add(this->loginAccountTextBox);
+			this->accountTab->Controls->Add(this->loginAccountLabel);
+			this->accountTab->Controls->Add(this->logoutButton);
+			this->accountTab->Location = System::Drawing::Point(4, 22);
+			this->accountTab->Name = L"accountTab";
+			this->accountTab->Padding = System::Windows::Forms::Padding(3);
+			this->accountTab->Size = System::Drawing::Size(368, 327);
+			this->accountTab->TabIndex = 2;
+			this->accountTab->Text = L"Nowe konto";
+			this->accountTab->UseVisualStyleBackColor = true;
+			// 
+			// newAccountButton
+			// 
+			this->newAccountButton->Location = System::Drawing::Point(109, 207);
+			this->newAccountButton->Name = L"newAccountButton";
+			this->newAccountButton->Size = System::Drawing::Size(150, 40);
+			this->newAccountButton->TabIndex = 29;
+			this->newAccountButton->Text = L"Za³ó¿ konto";
+			this->newAccountButton->UseVisualStyleBackColor = true;
 			// 
 			// reloadButton
 			// 
-			this->reloadButton->Location = System::Drawing::Point(25, 156);
+			this->reloadButton->Location = System::Drawing::Point(22, 156);
 			this->reloadButton->Name = L"reloadButton";
 			this->reloadButton->Size = System::Drawing::Size(104, 27);
 			this->reloadButton->TabIndex = 28;
 			this->reloadButton->Text = L"Przywróæ";
 			this->reloadButton->UseVisualStyleBackColor = true;
+			this->reloadButton->Visible = false;
 			this->reloadButton->Click += gcnew System::EventHandler(this, &MainWindow::reloadButton_Click);
 			// 
 			// deleteAccount
 			// 
-			this->deleteAccount->Location = System::Drawing::Point(245, 156);
+			this->deleteAccount->Location = System::Drawing::Point(242, 156);
 			this->deleteAccount->Name = L"deleteAccount";
 			this->deleteAccount->Size = System::Drawing::Size(104, 27);
 			this->deleteAccount->TabIndex = 27;
 			this->deleteAccount->Text = L"Usuñ konto";
 			this->deleteAccount->UseVisualStyleBackColor = true;
+			this->deleteAccount->Visible = false;
 			// 
 			// saveAccount
 			// 
-			this->saveAccount->Location = System::Drawing::Point(135, 156);
+			this->saveAccount->Location = System::Drawing::Point(132, 156);
 			this->saveAccount->Name = L"saveAccount";
 			this->saveAccount->Size = System::Drawing::Size(104, 27);
 			this->saveAccount->TabIndex = 26;
 			this->saveAccount->Text = L"Zapisz";
 			this->saveAccount->UseVisualStyleBackColor = true;
+			this->saveAccount->Visible = false;
 			this->saveAccount->Click += gcnew System::EventHandler(this, &MainWindow::saveAccount_Click);
 			// 
 			// surnameTextBox
 			// 
-			this->surnameTextBox->Location = System::Drawing::Point(147, 120);
+			this->surnameTextBox->Location = System::Drawing::Point(140, 120);
 			this->surnameTextBox->Name = L"surnameTextBox";
 			this->surnameTextBox->Size = System::Drawing::Size(205, 20);
 			this->surnameTextBox->TabIndex = 25;
@@ -504,7 +519,7 @@ namespace FaceAuthorizationSystem {
 			// surnameLabel
 			// 
 			this->surnameLabel->AutoSize = true;
-			this->surnameLabel->Location = System::Drawing::Point(30, 124);
+			this->surnameLabel->Location = System::Drawing::Point(23, 124);
 			this->surnameLabel->Name = L"surnameLabel";
 			this->surnameLabel->Size = System::Drawing::Size(56, 13);
 			this->surnameLabel->TabIndex = 24;
@@ -512,7 +527,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// nameTextBox
 			// 
-			this->nameTextBox->Location = System::Drawing::Point(147, 85);
+			this->nameTextBox->Location = System::Drawing::Point(140, 85);
 			this->nameTextBox->Name = L"nameTextBox";
 			this->nameTextBox->Size = System::Drawing::Size(205, 20);
 			this->nameTextBox->TabIndex = 23;
@@ -521,7 +536,7 @@ namespace FaceAuthorizationSystem {
 			// nameLabel
 			// 
 			this->nameLabel->AutoSize = true;
-			this->nameLabel->Location = System::Drawing::Point(30, 89);
+			this->nameLabel->Location = System::Drawing::Point(23, 89);
 			this->nameLabel->Name = L"nameLabel";
 			this->nameLabel->Size = System::Drawing::Size(29, 13);
 			this->nameLabel->TabIndex = 22;
@@ -529,7 +544,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// passwordAccountTextBox
 			// 
-			this->passwordAccountTextBox->Location = System::Drawing::Point(147, 50);
+			this->passwordAccountTextBox->Location = System::Drawing::Point(140, 50);
 			this->passwordAccountTextBox->Name = L"passwordAccountTextBox";
 			this->passwordAccountTextBox->Size = System::Drawing::Size(205, 20);
 			this->passwordAccountTextBox->TabIndex = 21;
@@ -538,7 +553,7 @@ namespace FaceAuthorizationSystem {
 			// passwordAccountLabel
 			// 
 			this->passwordAccountLabel->AutoSize = true;
-			this->passwordAccountLabel->Location = System::Drawing::Point(30, 54);
+			this->passwordAccountLabel->Location = System::Drawing::Point(23, 54);
 			this->passwordAccountLabel->Name = L"passwordAccountLabel";
 			this->passwordAccountLabel->Size = System::Drawing::Size(39, 13);
 			this->passwordAccountLabel->TabIndex = 20;
@@ -546,7 +561,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// loginAccountTextBox
 			// 
-			this->loginAccountTextBox->Location = System::Drawing::Point(147, 16);
+			this->loginAccountTextBox->Location = System::Drawing::Point(140, 16);
 			this->loginAccountTextBox->Name = L"loginAccountTextBox";
 			this->loginAccountTextBox->Size = System::Drawing::Size(205, 20);
 			this->loginAccountTextBox->TabIndex = 19;
@@ -555,7 +570,7 @@ namespace FaceAuthorizationSystem {
 			// loginAccountLabel
 			// 
 			this->loginAccountLabel->AutoSize = true;
-			this->loginAccountLabel->Location = System::Drawing::Point(30, 20);
+			this->loginAccountLabel->Location = System::Drawing::Point(23, 20);
 			this->loginAccountLabel->Name = L"loginAccountLabel";
 			this->loginAccountLabel->Size = System::Drawing::Size(105, 13);
 			this->loginAccountLabel->TabIndex = 18;
@@ -569,33 +584,35 @@ namespace FaceAuthorizationSystem {
 			this->logoutButton->TabIndex = 17;
 			this->logoutButton->Text = L"Wyloguj";
 			this->logoutButton->UseVisualStyleBackColor = true;
+			this->logoutButton->Visible = false;
 			this->logoutButton->Click += gcnew System::EventHandler(this, &MainWindow::logoutButton_Click);
 			// 
 			// deletePhotoButton
 			// 
 			this->deletePhotoButton->Enabled = false;
-			this->deletePhotoButton->Location = System::Drawing::Point(494, 297);
+			this->deletePhotoButton->Location = System::Drawing::Point(493, 297);
 			this->deletePhotoButton->Name = L"deletePhotoButton";
 			this->deletePhotoButton->Size = System::Drawing::Size(93, 30);
 			this->deletePhotoButton->TabIndex = 21;
 			this->deletePhotoButton->Text = L"Usuñ zdjêcie";
 			this->deletePhotoButton->UseVisualStyleBackColor = true;
-			this->deletePhotoButton->Click += gcnew System::EventHandler(this, &MainWindow::deletePhotoButton_Click_1);
+			this->deletePhotoButton->Click += gcnew System::EventHandler(this, &MainWindow::deletePhotoButton_Click);
 			// 
 			// takePhotoButton
 			// 
 			this->takePhotoButton->Enabled = false;
-			this->takePhotoButton->Location = System::Drawing::Point(395, 297);
+			this->takePhotoButton->Location = System::Drawing::Point(394, 297);
 			this->takePhotoButton->Name = L"takePhotoButton";
 			this->takePhotoButton->Size = System::Drawing::Size(93, 30);
 			this->takePhotoButton->TabIndex = 19;
 			this->takePhotoButton->Text = L"Zrób zdjêcie";
 			this->takePhotoButton->UseVisualStyleBackColor = true;
-			this->takePhotoButton->Click += gcnew System::EventHandler(this, &MainWindow::takePhotoButton_Click_1);
+			this->takePhotoButton->Click += gcnew System::EventHandler(this, &MainWindow::takePhotoButton_Click);
 			// 
 			// savePhotoButton
 			// 
-			this->savePhotoButton->Location = System::Drawing::Point(593, 297);
+			this->savePhotoButton->Enabled = false;
+			this->savePhotoButton->Location = System::Drawing::Point(592, 297);
 			this->savePhotoButton->Name = L"savePhotoButton";
 			this->savePhotoButton->Size = System::Drawing::Size(93, 30);
 			this->savePhotoButton->TabIndex = 0;
@@ -606,7 +623,7 @@ namespace FaceAuthorizationSystem {
 			// cameraOffButton
 			// 
 			this->cameraOffButton->Enabled = false;
-			this->cameraOffButton->Location = System::Drawing::Point(546, 333);
+			this->cameraOffButton->Location = System::Drawing::Point(545, 333);
 			this->cameraOffButton->Name = L"cameraOffButton";
 			this->cameraOffButton->Size = System::Drawing::Size(120, 31);
 			this->cameraOffButton->TabIndex = 13;
@@ -616,7 +633,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// cameraButton
 			// 
-			this->cameraButton->Location = System::Drawing::Point(417, 333);
+			this->cameraButton->Location = System::Drawing::Point(416, 333);
 			this->cameraButton->Name = L"cameraButton";
 			this->cameraButton->Size = System::Drawing::Size(120, 31);
 			this->cameraButton->TabIndex = 7;
@@ -643,7 +660,7 @@ namespace FaceAuthorizationSystem {
 			// activeUserLabel
 			// 
 			this->activeUserLabel->AutoSize = true;
-			this->activeUserLabel->Location = System::Drawing::Point(431, 21);
+			this->activeUserLabel->Location = System::Drawing::Point(430, 21);
 			this->activeUserLabel->Name = L"activeUserLabel";
 			this->activeUserLabel->Size = System::Drawing::Size(106, 13);
 			this->activeUserLabel->TabIndex = 14;
@@ -652,7 +669,7 @@ namespace FaceAuthorizationSystem {
 			// activeUserLoginLabel
 			// 
 			this->activeUserLoginLabel->AutoSize = true;
-			this->activeUserLoginLabel->Location = System::Drawing::Point(543, 21);
+			this->activeUserLoginLabel->Location = System::Drawing::Point(542, 21);
 			this->activeUserLoginLabel->Name = L"activeUserLoginLabel";
 			this->activeUserLoginLabel->Size = System::Drawing::Size(32, 13);
 			this->activeUserLoginLabel->TabIndex = 15;
@@ -662,7 +679,7 @@ namespace FaceAuthorizationSystem {
 			// photoBox
 			// 
 			this->photoBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->photoBox->Location = System::Drawing::Point(431, 57);
+			this->photoBox->Location = System::Drawing::Point(430, 57);
 			this->photoBox->Name = L"photoBox";
 			this->photoBox->Size = System::Drawing::Size(224, 224);
 			this->photoBox->TabIndex = 20;
@@ -673,7 +690,7 @@ namespace FaceAuthorizationSystem {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoValidate = System::Windows::Forms::AutoValidate::Disable;
-			this->ClientSize = System::Drawing::Size(690, 373);
+			this->ClientSize = System::Drawing::Size(701, 377);
 			this->Controls->Add(this->savePhotoButton);
 			this->Controls->Add(this->takePhotoButton);
 			this->Controls->Add(this->deletePhotoButton);
@@ -701,8 +718,8 @@ namespace FaceAuthorizationSystem {
 			this->loginTab->PerformLayout();
 			this->infoTab->ResumeLayout(false);
 			this->infoTab->PerformLayout();
-			this->tabPage1->ResumeLayout(false);
-			this->tabPage1->PerformLayout();
+			this->accountTab->ResumeLayout(false);
+			this->accountTab->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider3))->EndInit();
@@ -760,11 +777,13 @@ namespace FaceAuthorizationSystem {
 		mat2picture bimapconvert;
 		if (app->takePhoto()) {
 			deletePhotoButton->Enabled = true;
+			this->savePhotoButton->Enabled = true;
 			photoBox->Image = bimapconvert.Mat2Bimap(*app->getTakenPhoto());
 		}
 		else {
 			photoBox->Image = nullptr;
 			deletePhotoButton->Enabled = false;
+			this->savePhotoButton->Enabled = false;
 		}
 		photoBox->Refresh();
 	}
@@ -779,7 +798,8 @@ namespace FaceAuthorizationSystem {
 			char2str ch2str; // convert string use jackylib
 			User* user = app->getActiveUser();
 			message = ch2str.ConvertChar2String(format("Zalogowa³eœ siê do systemu jako %s %s.", user->getName().c_str(), user->getSurname().c_str()));
-			this->tabControl1->Controls->Add(this->tabPage1);
+			//this->tabControl1->Controls->Add(this->myAccountTab);
+			this->accountTab->Text = "Moje konto";
 			this->loginButton->Enabled = false;
 			this->loginTextBox->Clear();
 			this->loginTab->Enabled = false;
@@ -788,6 +808,13 @@ namespace FaceAuthorizationSystem {
 			this->passwordAccountTextBox->Text = ch2str.ConvertChar2String(user->getPassword());
 			this->nameTextBox->Text = ch2str.ConvertChar2String(user->getName());
 			this->surnameTextBox->Text = ch2str.ConvertChar2String(user->getSurname());
+
+			this->reloadButton->Visible = true;
+			this->saveAccount->Visible = true;
+			this->deleteAccount->Visible = true;
+			this->logoutButton->Visible = true;
+
+			this->newAccountButton->Visible = false;
 
 			this->activeUserLoginLabel->Text = ch2str.ConvertChar2String(user->getLogin());
 		}
@@ -801,19 +828,35 @@ namespace FaceAuthorizationSystem {
 
 		// Displays the MessageBox.
 		result = MessageBox::Show(this, message, caption, buttons);
+		this->tabControl1->SelectedTab = this->accountTab;
 	}
 	private: System::Void deletePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
 		app->removePhoto();
 		photoBox->Image = nullptr;
 		deletePhotoButton->Enabled = false;
+		savePhotoButton->Enabled = false;
 		photoBox->Refresh();
 	}
 private: System::Void logoutButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	loginButton->Enabled = true;
 	this->loginTab->Enabled = true;
-	this->tabControl1->Controls->Remove(this->tabPage1);
-	char2str ch2str; // convert string use jackylib
+	//this->tabControl1->Controls->Remove(this->myAccountTab);
+	this->accountTab->Text = "Nowe konto";
 	this->activeUserLoginLabel->Text = "Goœæ";
+
+	this->loginAccountTextBox->Text = "";
+	this->passwordAccountTextBox->Text = "";
+	this->nameTextBox->Text = "";
+	this->surnameTextBox->Text = "";
+
+	this->reloadButton->Visible = false;
+	this->saveAccount->Visible = false;
+	this->deleteAccount->Visible = false;
+	this->logoutButton->Visible = false;
+
+	this->newAccountButton->Visible = true;
+	this->tabControl1->SelectedTab = this->welcomeTab;
+
 	app->logout();
 }
 private: System::Void loginAccountTextBox_Validating(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
@@ -853,8 +896,20 @@ private: System::Void saveAccount_Click(System::Object^  sender, System::EventAr
 	}
 }
 private: System::Void savePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	app->savePhoto();
-	
+	System::String^ message;
+	string filename, directory;
+	char2str ch2str; // convert string use jackylib
+	if (app->savePhoto(filename, directory) == true) {
+		message = ch2str.ConvertChar2String(format("Zapisano zdjêcie o nazwie %s w katalogu %s.", filename.c_str(), directory.c_str()));
+	}
+	else {
+		message = "Nie uda³o siê zapisaæ zdjêcia.";
+	}
+	System::String^ caption = "Komunikat";
+	MessageBoxButtons buttons = MessageBoxButtons::OK;
+	System::Windows::Forms::DialogResult result;
+	result = MessageBox::Show(this, message, caption, buttons);
+	deletePhotoButton_Click(sender, e);	
 }
 private: System::Void passwordAccountTextBox_Validating(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
 	if (passwordAccountTextBox->Text == "") {
@@ -885,23 +940,23 @@ private: System::Void surnameTextBox_Validating(System::Object^  sender, System:
 }
 private: System::Void activeUserLoginLabel_Click(System::Object^  sender, System::EventArgs^  e) {
 }
-private: System::Void takePhotoButton_Click_1(System::Object^  sender, System::EventArgs^  e) {
-	mat2picture bimapconvert;
-	if (app->takePhoto()) {
-		deletePhotoButton->Enabled = true;
-		photoBox->Image = bimapconvert.Mat2Bimap(*app->getTakenPhoto());
-	}
-	else {
-		photoBox->Image = nullptr;
-		deletePhotoButton->Enabled = false;
-	}
-	photoBox->Refresh();
-}
-private: System::Void deletePhotoButton_Click_1(System::Object^  sender, System::EventArgs^  e) {
-	app->removePhoto();
-	photoBox->Image = nullptr;
-	deletePhotoButton->Enabled = false;
-	photoBox->Refresh();
-}
+//private: System::Void takePhotoButton_Click_1(System::Object^  sender, System::EventArgs^  e) {
+//	mat2picture bimapconvert;
+//	if (app->takePhoto()) {
+//		deletePhotoButton->Enabled = true;
+//		photoBox->Image = bimapconvert.Mat2Bimap(*app->getTakenPhoto());
+//	}
+//	else {
+//		photoBox->Image = nullptr;
+//		deletePhotoButton->Enabled = false;
+//	}
+//	photoBox->Refresh();
+//}
+//private: System::Void deletePhotoButton_Click_1(System::Object^  sender, System::EventArgs^  e) {
+//	app->removePhoto();
+//	photoBox->Image = nullptr;
+//	deletePhotoButton->Enabled = false;
+//	photoBox->Refresh();
+//}
 };
 }

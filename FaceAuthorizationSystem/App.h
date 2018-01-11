@@ -15,7 +15,7 @@ public:
 	~App();
 
 	//bool writeCsv();
-	bool savePhoto();
+	bool savePhoto(string& filename, string& directory);
 	void trainRecognizer();
 	int predict(Mat frame);
 	void test();
