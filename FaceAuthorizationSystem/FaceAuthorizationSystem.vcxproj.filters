@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="jackylib.cpp" />
+    <ClCompile Include="VideoCaptureManager.cpp">
+      <Filter>Backend\VideoCaptureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Backend\ImageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Backend\App</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceDetectionManager.cpp">
+      <Filter>Backend\FaceDetectionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceRecognitionManager.cpp">
+      <Filter>Backend\FaceRecognitionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PhotoDAO.cpp">
+      <Filter>Backend\DAO\PhotoDAO</Filter>
+    </ClCompile>
+    <ClCompile Include="Photo.cpp">
+      <Filter>Backend\DAO\PhotoDAO\Photo</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Backend\DAO\UserDAO\User</Filter>
+    </ClCompile>
+    <ClCompile Include="UserDAO.cpp">
+      <Filter>Backend\DAO\UserDAO</Filter>
+    </ClCompile>
+    <ClCompile Include="TanTriggs.cpp">
+      <Filter>Backend\ImageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>MainForm</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jackylib.h" />
+    <ClInclude Include="VideoCaptureManager.h">
+      <Filter>Backend\VideoCaptureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Backend\ImageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>Backend\App</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceDetectionManager.h">
+      <Filter>Backend\FaceDetectionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceRecognitionManager.h">
+      <Filter>Backend\FaceRecognitionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DAO.h">
+      <Filter>Backend\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="PhotoDAO.h">
+      <Filter>Backend\DAO\PhotoDAO</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Backend\DAO\UserDAO\User</Filter>
+    </ClInclude>
+    <ClInclude Include="UserDAO.h">
+      <Filter>Backend\DAO\UserDAO</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="TanTriggs.h">
+      <Filter>Backend\ImageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Photo.h">
+      <Filter>Backend\DAO\PhotoDAO\Photo</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
+      <Filter>MainForm</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CameraSettingsForm.resx" />
+    <EmbeddedResource Include="LoginForm.resx" />
+    <EmbeddedResource Include="MainWindow.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Backend">
+      <UniqueIdentifier>{c6c5bddf-e5a0-4fe7-a08f-9baaef046627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\VideoCaptureManager">
+      <UniqueIdentifier>{39a79329-cab5-420d-95f8-57b0864cb2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\ImageManager">
+      <UniqueIdentifier>{e66938a4-42c9-42fe-a0e1-046912ec3721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\App">
+      <UniqueIdentifier>{5c312002-5ebc-4eee-a37e-ea58b09e0a98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\FaceDetectionManager">
+      <UniqueIdentifier>{dc08a872-5898-4a1a-a025-1eadda31792d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\FaceRecognitionManager">
+      <UniqueIdentifier>{27ba730d-7c81-47af-9207-9eb630e4a396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\DAO">
+      <UniqueIdentifier>{0d937e74-7041-4cd3-b7f0-27d72140b47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\DAO\PhotoDAO">
+      <UniqueIdentifier>{653c883d-a9ca-4a27-a8cb-67897c83141b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\DAO\UserDAO">
+      <UniqueIdentifier>{71d94b8a-934d-4fbe-96f2-da1580fd3b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\DAO\PhotoDAO\Photo">
+      <UniqueIdentifier>{b036ffaf-fafc-41ca-9a4d-89b5da1b9913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend\DAO\UserDAO\User">
+      <UniqueIdentifier>{0668744b-3b8c-41b8-b1f1-e5b7ace969ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainForm">
+      <UniqueIdentifier>{f5531741-62ba-4d25-8d8c-52735467d694}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Image1.bmp" />
+    <Image Include="images\logo\logo.jpg" />
+  </ItemGroup>
+</Project>
