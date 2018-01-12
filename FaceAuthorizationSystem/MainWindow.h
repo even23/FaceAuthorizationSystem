@@ -1,6 +1,6 @@
 #pragma once
 #include "App.h"
-#include "jackylib.h"
+//#include "jackylib.h"
 
 namespace FaceAuthorizationSystem {
 	using namespace System;
@@ -11,7 +11,7 @@ namespace FaceAuthorizationSystem {
 	using namespace System::Drawing;
 	using namespace System::Threading;
 
-	using namespace jacky_lib;
+	//using namespace jacky_lib;
 
 	/// <summary>
 	/// Summary for MainWindow
@@ -45,6 +45,11 @@ namespace FaceAuthorizationSystem {
 
 	private: App^ app;
 	private: Thread^ cameraThread;
+	private: System::String^ message;
+	private: System::String^ caption = "Komunikat";
+	private: MessageBoxButtons buttons = MessageBoxButtons::OK;
+	private: System::Windows::Forms::DialogResult result;
+
 	private: System::Windows::Forms::TabControl^  tabControl1;
 	private: System::Windows::Forms::TabPage^  cameraTab;
 
@@ -209,9 +214,9 @@ namespace FaceAuthorizationSystem {
 			this->tabControl1->Controls->Add(this->welcomeTab);
 			this->tabControl1->Controls->Add(this->cameraTab);
 			this->tabControl1->Controls->Add(this->loginTab);
+			this->tabControl1->Controls->Add(this->accountTab);
 			this->tabControl1->Controls->Add(this->infoTab);
 			this->tabControl1->Controls->Add(this->helpTab);
-			this->tabControl1->Controls->Add(this->accountTab);
 			this->tabControl1->Location = System::Drawing::Point(12, 12);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
@@ -475,6 +480,7 @@ namespace FaceAuthorizationSystem {
 			this->newAccountButton->TabIndex = 29;
 			this->newAccountButton->Text = L"Za³ó¿ konto";
 			this->newAccountButton->UseVisualStyleBackColor = true;
+			this->newAccountButton->Click += gcnew System::EventHandler(this, &MainWindow::newAccountButton_Click);
 			// 
 			// reloadButton
 			// 
@@ -674,7 +680,6 @@ namespace FaceAuthorizationSystem {
 			this->activeUserLoginLabel->Size = System::Drawing::Size(32, 13);
 			this->activeUserLoginLabel->TabIndex = 15;
 			this->activeUserLoginLabel->Text = L"Goœæ";
-			this->activeUserLoginLabel->Click += gcnew System::EventHandler(this, &MainWindow::activeUserLoginLabel_Click);
 			// 
 			// photoBox
 			// 
@@ -774,11 +779,10 @@ namespace FaceAuthorizationSystem {
 		takePhotoButton->Enabled = false;
 	}
 	private: System::Void takePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
-		mat2picture bimapconvert;
 		if (app->takePhoto()) {
 			deletePhotoButton->Enabled = true;
 			this->savePhotoButton->Enabled = true;
-			photoBox->Image = bimapconvert.Mat2Bimap(*app->getTakenPhoto());
+			photoBox->Image = Utils::mat2Bitmap(*app->getTakenPhoto());
 		}
 		else {
 			photoBox->Image = nullptr;
@@ -790,24 +794,20 @@ namespace FaceAuthorizationSystem {
 	private: System::Void tabControl1_Selected(System::Object^  sender, System::Windows::Forms::TabControlEventArgs^  e) {
 	}
 	private: System::Void loginButton_Click(System::Object^  sender, System::EventArgs^  e) {
-		str2char str2ch; // convert string use jackylib
-		string login = str2ch.ConvertString2Char(loginTextBox->Text);
-		string typedPassword = str2ch.ConvertString2Char(passwordTextBox->Text);
-		System::String^ message;
+		string login = Utils::string2Char(loginTextBox->Text);
+		string typedPassword = Utils::string2Char(passwordTextBox->Text);
 		if (app->login(login, typedPassword)) {
-			char2str ch2str; // convert string use jackylib
 			User* user = app->getActiveUser();
-			message = ch2str.ConvertChar2String(format("Zalogowa³eœ siê do systemu jako %s %s.", user->getName().c_str(), user->getSurname().c_str()));
-			//this->tabControl1->Controls->Add(this->myAccountTab);
+			message = Utils::char2String(format("Zalogowa³eœ siê do systemu jako %s %s.", user->getName().c_str(), user->getSurname().c_str()));
 			this->accountTab->Text = "Moje konto";
 			this->loginButton->Enabled = false;
 			this->loginTextBox->Clear();
 			this->loginTab->Enabled = false;
 
-			this->loginAccountTextBox->Text = ch2str.ConvertChar2String(user->getLogin());
-			this->passwordAccountTextBox->Text = ch2str.ConvertChar2String(user->getPassword());
-			this->nameTextBox->Text = ch2str.ConvertChar2String(user->getName());
-			this->surnameTextBox->Text = ch2str.ConvertChar2String(user->getSurname());
+			this->loginAccountTextBox->Text = Utils::char2String(user->getLogin());
+			this->passwordAccountTextBox->Text = Utils::char2String(user->getPassword());
+			this->nameTextBox->Text = Utils::char2String(user->getName());
+			this->surnameTextBox->Text = Utils::char2String(user->getSurname());
 
 			this->reloadButton->Visible = true;
 			this->saveAccount->Visible = true;
@@ -816,17 +816,12 @@ namespace FaceAuthorizationSystem {
 
 			this->newAccountButton->Visible = false;
 
-			this->activeUserLoginLabel->Text = ch2str.ConvertChar2String(user->getLogin());
+			this->activeUserLoginLabel->Text = Utils::char2String(user->getLogin());
 		}
 		else {
 			message = "Nie uda³o siê zalogowaæ do systemu.";
 		}
 		this->passwordTextBox->Clear();
-		System::String^ caption = "Komunikat";
-		MessageBoxButtons buttons = MessageBoxButtons::OK;
-		System::Windows::Forms::DialogResult result;
-
-		// Displays the MessageBox.
 		result = MessageBox::Show(this, message, caption, buttons);
 		this->tabControl1->SelectedTab = this->accountTab;
 	}
@@ -840,7 +835,6 @@ namespace FaceAuthorizationSystem {
 private: System::Void logoutButton_Click(System::Object^  sender, System::EventArgs^  e) {
 	loginButton->Enabled = true;
 	this->loginTab->Enabled = true;
-	//this->tabControl1->Controls->Remove(this->myAccountTab);
 	this->accountTab->Text = "Nowe konto";
 	this->activeUserLoginLabel->Text = "Goœæ";
 
@@ -859,14 +853,41 @@ private: System::Void logoutButton_Click(System::Object^  sender, System::EventA
 
 	app->logout();
 }
+private: System::Void reloadButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	User* user = app->getActiveUser();
+	this->loginAccountTextBox->Text = Utils::char2String(user->getLogin());
+	this->passwordAccountTextBox->Text = Utils::char2String(user->getPassword());
+	this->nameTextBox->Text = Utils::char2String(user->getName());
+	this->surnameTextBox->Text = Utils::char2String(user->getSurname());
+	ValidateChildren();
+}
+private: System::Void saveAccount_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (ValidateChildren()) {
+		User* user = app->getActiveUser();
+		user->setName(Utils::string2Char(nameTextBox->Text));
+		user->setSurname(Utils::string2Char(surnameTextBox->Text));
+		user->setLogin(Utils::string2Char(loginAccountTextBox->Text));
+		user->setPassword(Utils::string2Char(passwordAccountTextBox->Text));
+	}
+}
+private: System::Void savePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	string filename, directory;
+	if (app->savePhoto(filename, directory) == true) {
+		message = Utils::char2String(format("Zapisano zdjêcie o nazwie %s w katalogu %s.", filename.c_str(), directory.c_str()));
+	}
+	else {
+		message = "Nie uda³o siê zapisaæ zdjêcia.";
+	}
+	result = MessageBox::Show(this, message, caption, buttons);
+	deletePhotoButton_Click(sender, e);	
+}
 private: System::Void loginAccountTextBox_Validating(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
 	if (loginAccountTextBox->Text == "") {
 		errorProvider1->SetError(loginAccountTextBox, "Pole jest wymagane.");
 		e->Cancel = true;
 	}
 	else {
-		str2char str2ch; // convert string use jackylib
-		string login = str2ch.ConvertString2Char(loginAccountTextBox->Text);
+		string login = Utils::string2Char(loginAccountTextBox->Text);
 		User* user = app->getUserDAO()->getUserByLogin(login);
 		if (user != nullptr && user != app->getActiveUser()) {
 			errorProvider1->SetError(loginAccountTextBox, "Login musi byæ unikalny.");
@@ -875,41 +896,6 @@ private: System::Void loginAccountTextBox_Validating(System::Object^  sender, Sy
 			errorProvider1->SetError(loginAccountTextBox, "");
 		}
 	}
-}
-private: System::Void reloadButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	char2str ch2str; // convert string use jackylib
-	User* user = app->getActiveUser();
-	this->loginAccountTextBox->Text = ch2str.ConvertChar2String(user->getLogin());
-	this->passwordAccountTextBox->Text = ch2str.ConvertChar2String(user->getPassword());
-	this->nameTextBox->Text = ch2str.ConvertChar2String(user->getName());
-	this->surnameTextBox->Text = ch2str.ConvertChar2String(user->getSurname());
-	ValidateChildren();
-}
-private: System::Void saveAccount_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (ValidateChildren()) {
-		str2char str2ch; // convert string use jackylib
-		User* user = app->getActiveUser();
-		user->setName(str2ch.ConvertString2Char(nameTextBox->Text));
-		user->setSurname(str2ch.ConvertString2Char(surnameTextBox->Text));
-		user->setLogin(str2ch.ConvertString2Char(loginAccountTextBox->Text));
-		user->setPassword(str2ch.ConvertString2Char(passwordAccountTextBox->Text));
-	}
-}
-private: System::Void savePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	System::String^ message;
-	string filename, directory;
-	char2str ch2str; // convert string use jackylib
-	if (app->savePhoto(filename, directory) == true) {
-		message = ch2str.ConvertChar2String(format("Zapisano zdjêcie o nazwie %s w katalogu %s.", filename.c_str(), directory.c_str()));
-	}
-	else {
-		message = "Nie uda³o siê zapisaæ zdjêcia.";
-	}
-	System::String^ caption = "Komunikat";
-	MessageBoxButtons buttons = MessageBoxButtons::OK;
-	System::Windows::Forms::DialogResult result;
-	result = MessageBox::Show(this, message, caption, buttons);
-	deletePhotoButton_Click(sender, e);	
 }
 private: System::Void passwordAccountTextBox_Validating(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
 	if (passwordAccountTextBox->Text == "") {
@@ -938,25 +924,25 @@ private: System::Void surnameTextBox_Validating(System::Object^  sender, System:
 		errorProvider4->SetError(surnameTextBox, "");
 	}
 }
-private: System::Void activeUserLoginLabel_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void newAccountButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (ValidateChildren()) {
+
+		string name = Utils::string2Char(nameTextBox->Text);
+		string surname = Utils::string2Char(surnameTextBox->Text);
+		string login = Utils::string2Char(loginAccountTextBox->Text);
+		string password = Utils::string2Char(passwordAccountTextBox->Text);
+
+		User* user = app->getUserDAO()->addUser(name, surname, login, password);
+
+		this->loginAccountTextBox->Text = "";
+		this->passwordAccountTextBox->Text = "";
+		this->nameTextBox->Text = "";
+		this->surnameTextBox->Text = "";
+
+		message = Utils::char2String(format("Utworzono u¿ytkownika o nazwie %s i haœle %s.", user->getLogin().c_str(), user->getPassword().c_str()));
+		result = MessageBox::Show(this, message, caption, buttons);
+		this->tabControl1->SelectedTab = this->welcomeTab;
+	}
 }
-//private: System::Void takePhotoButton_Click_1(System::Object^  sender, System::EventArgs^  e) {
-//	mat2picture bimapconvert;
-//	if (app->takePhoto()) {
-//		deletePhotoButton->Enabled = true;
-//		photoBox->Image = bimapconvert.Mat2Bimap(*app->getTakenPhoto());
-//	}
-//	else {
-//		photoBox->Image = nullptr;
-//		deletePhotoButton->Enabled = false;
-//	}
-//	photoBox->Refresh();
-//}
-//private: System::Void deletePhotoButton_Click_1(System::Object^  sender, System::EventArgs^  e) {
-//	app->removePhoto();
-//	photoBox->Image = nullptr;
-//	deletePhotoButton->Enabled = false;
-//	photoBox->Refresh();
-//}
 };
 }

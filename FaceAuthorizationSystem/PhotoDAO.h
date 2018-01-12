@@ -18,7 +18,7 @@ public:
 
 	void read_csv(char separator = ';');
 	void write_csv(char separator = ';');
-	string getCsvRow(Photo photo, char separator);
+	string getCsvRow(Photo* photo, char separator);
 
 	vector<Photo*>* getPhotos() { return photos; }
 

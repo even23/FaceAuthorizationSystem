@@ -12,7 +12,7 @@ using namespace cv;
 class ImageManager
 {
 public:
-	ImageManager(PhotoDAO* _photoDAO, string _directoryPath = PhotoDAO::PHOTO_DIR, Size _goalSize = Size(92, 112), bool _keepAspectRatio = true);
+	ImageManager(PhotoDAO* _photoDAO, string _directoryPath = PhotoDAO::PHOTO_DIR, cv::Size _goalSize = cv::Size(92, 112), bool _keepAspectRatio = true);
 	~ImageManager();
 
 	Mat processImage(Mat& image);
@@ -25,7 +25,7 @@ public:
 
 	void tanTriggsPreprocessing(Mat& image);
 
-	Mat resizeImage(Mat& image, Size size = Size(92, 112));
+	Mat resizeImage(Mat& image, cv::Size size = cv::Size(92, 112));
 
 
 private:
@@ -33,7 +33,7 @@ private:
 
 	string directoryPath;
 	string commonDirectoryPath;
-	Size goalSize;
+	cv::Size goalSize;
 	bool keepAspectRatio;
 };
 

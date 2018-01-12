@@ -15,16 +15,20 @@ public:
 	~UserDAO();
 	void read_csv(char separator = ';');
 	void write_csv(char separator = ';');
-	string getCsvRow(User user, char separator);
+	string getCsvRow(User* user, char separator);
 
 	User * getUserByLogin(string login);
 
-	vector<User>* getUsers() { return users; };
+	vector<User*>* getUsers() { return users; };
+
+	User* addUser(string name, string surname, string login, string password);
+
+
 
 protected:
 	//bool isModified;
 	//string filename;
-	vector<User>* users;
+	vector<User*>* users;
 	//string headers;
 };
 

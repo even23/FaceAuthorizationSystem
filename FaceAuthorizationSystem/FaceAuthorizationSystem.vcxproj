@@ -147,13 +147,13 @@
     <ClCompile Include="FaceDetectionManager.cpp" />
     <ClCompile Include="FaceRecognitionManager.cpp" />
     <ClCompile Include="ImageManager.cpp" />
-    <ClCompile Include="jackylib.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Photo.cpp" />
     <ClCompile Include="PhotoDAO.cpp" />
     <ClCompile Include="TanTriggs.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserDAO.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VideoCaptureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +162,6 @@
     <ClInclude Include="FaceDetectionManager.h" />
     <ClInclude Include="FaceRecognitionManager.h" />
     <ClInclude Include="ImageManager.h" />
-    <ClInclude Include="jackylib.h" />
     <ClInclude Include="MainWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>

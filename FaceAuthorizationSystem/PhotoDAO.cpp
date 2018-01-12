@@ -47,16 +47,16 @@ void PhotoDAO::write_csv(char separator)
 	ofstream file(filename);
 	file << headers << endl;
 	for (vector<Photo*>::iterator photo = photos->begin(); photo != photos->end(); ++photo) {
-		file << getCsvRow(**photo, separator) << endl;
+		file << getCsvRow(*photo, separator) << endl;
 	}
 	file.close();
 }
 
-string PhotoDAO::getCsvRow(Photo photo, char separator)
+string PhotoDAO::getCsvRow(Photo* photo, char separator)
 {
 	stringstream result;
-	result << photo.getId() << separator
-		<< photo.getUserId();
+	result << photo->getId() << separator
+		<< photo->getUserId();
 	return result.str();
 }
 

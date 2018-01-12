@@ -9,41 +9,14 @@
 
 using namespace std;
 using namespace cv;
+using namespace System::Runtime::InteropServices;
+using namespace System::Drawing;
 
-//bool stringToBool(std::string var)
-//{
-//	if (var == "true")
-//		return true;
-//	else
-//		return false;
-//	throw exception("bad string");
-//
-//}
-//
-//string boolToString(bool var)
-//{
-//	if (var == 1)
-//		return "true";
-//	else
-//		return "false";
-//	throw exception("bad string");
-//
-//}
+class Utils {
+public:
+	static System::Drawing::Bitmap^ mat2Bitmap(cv::Mat & colorImage);
+	static char * string2Char(System::String^ str);
+	static System::String^ char2String(std::string str);
 
-static Mat norm_0_255(InputArray _src) {
-	Mat src = _src.getMat();
-	// Create and return normalized image:
-	Mat dst;
-	switch (src.channels()) {
-	case 1:
-		cv::normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
-		break;
-	case 3:
-		cv::normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC3);
-		break;
-	default:
-		src.copyTo(dst);
-		break;
-	}
-	return dst;
-}
+	//static Mat norm_0_255(InputArray _src);
+};

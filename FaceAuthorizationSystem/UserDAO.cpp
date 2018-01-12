@@ -3,7 +3,7 @@
 
 UserDAO::UserDAO()
 {
-	users = new vector<User>();
+	users = new vector<User*>();
 	filename = USER_FILENAME;
 	isModified = false;
 	read_csv();
@@ -37,7 +37,7 @@ void UserDAO::read_csv(char separator) {
 		getline(liness, login, separator);
 		getline(liness, password, separator);
 		getline(liness, photos);
-		users->push_back(User(atoi(id.c_str()), name, surname, login, password, atoi(photos.c_str())));
+		users->push_back(new User(atoi(id.c_str()), name, surname, login, password, atoi(photos.c_str())));
 	}
 	file.close();
 }
@@ -46,29 +46,37 @@ void UserDAO::write_csv(char separator)
 {
 	ofstream file(filename);
 	file << headers << endl;
-	for (vector<User>::iterator user = users->begin(); user != users->end(); ++user) {
+	for (vector<User*>::iterator user = users->begin(); user != users->end(); ++user) {
 		file << getCsvRow(*user, separator) << endl;
 	}
 	file.close();
 }
 
-string UserDAO::getCsvRow(User user, char separator)
+string UserDAO::getCsvRow(User* user, char separator)
 {
 	stringstream result;
-	result << user.getId() << separator
-		<< user.getName() << separator
-		<< user.getSurname() << separator
-		<< user.getLogin() << separator
-		<< user.getPassword() << separator
-		<< user.getPhotos();
+	result << user->getId() << separator
+		<< user->getName() << separator
+		<< user->getSurname() << separator
+		<< user->getLogin() << separator
+		<< user->getPassword() << separator
+		<< user->getPhotos();
 	return result.str();
 }
 
 User* UserDAO::getUserByLogin(string login) {
-	for (vector<User>::iterator user = users->begin(); user != users->end(); ++user) {
-		if (user->getLogin() == login) {
-			return &(*user);
+	for (vector<User*>::iterator user = users->begin(); user != users->end(); ++user) {
+		if ((*user)->getLogin() == login) {
+			return *user;
 		}
 	}
 	return nullptr;
+}
+
+User* UserDAO::addUser(string name, string surname, string login, string password)
+{
+	int id = users->back()->getId();
+	User* user = new User(id + 1, name, surname, login, password, 0);
+	users->push_back(user);
+	return user;
 }
