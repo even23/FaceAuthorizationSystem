@@ -93,3 +93,53 @@ Mat ImageManager::resizeImage(Mat & image, Size size)
 
 	return resized;
 }
+
+bool ImageManager::compareHistograms(Mat a, Mat b)
+{
+	Mat x = resizeImage(a.clone());
+	Mat y = resizeImage(b.clone());
+
+	//cvtColor(x, x, COLOR_BGR2HSV);
+	//cvtColor(y, y, COLOR_BGR2HSV);
+
+	MatND xHist;
+	MatND yHist;
+	int imgCount = 1;
+	int dims = 3;
+	const int sizes[] = { 60,60,60 };
+	const int channels[] = { 0,1,2 };
+	float range[] = { 0,256 };
+	const float *ranges[] = { range, range, range };
+
+	//int dims = 2;
+	//int h_bins = 50; int s_bins = 60;
+	//int sizes[] = { h_bins, s_bins };
+	//float h_ranges[] = { 0, 180 };
+	//float s_ranges[] = { 0, 256 };
+	//const float* ranges[] = { h_ranges, s_ranges };
+	//int channels[] = { 0, 1 };
+
+
+	calcHist(&x, imgCount, channels, Mat(), xHist, dims, sizes, ranges);
+	normalize(xHist, xHist, 0, 1, NORM_MINMAX, -1, Mat());
+	calcHist(&y, imgCount, channels, Mat(), yHist, dims, sizes, ranges);
+	normalize(yHist, yHist, 0, 1, NORM_MINMAX, -1, Mat());
+
+	double result = compareHist(xHist, yHist, CV_COMP_CHISQR);
+
+	if (result < 100) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+
+}
+
+void ImageManager::processForHistogramComparison(Mat & mat)
+{
+	mat = resizeImage(mat);
+	convertToGrayScale(mat);
+	//equalizeHistogram(mat);
+}

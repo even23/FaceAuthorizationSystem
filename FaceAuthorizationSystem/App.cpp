@@ -193,12 +193,11 @@ void App::removeUser()
 bool App::verifyHuman()
 {
 	Mat frame = videoCaptureManager->getCurrentFrame()->clone();
-	if (faceDetectionManager->verifyEyes(frame)) {
-		//if (imageManager->verifyHistograms(frame, takenPhoto)) {
-
-		//}
-		verified = true;
-		return true;
+	if (faceDetectionManager->verifyEyes(frame) == 1) {
+		if (imageManager->compareHistograms(frame, *takenPhoto)) {
+			verified = true;
+			return true;
+		}
 	}
 	verified = false;
 	return false;

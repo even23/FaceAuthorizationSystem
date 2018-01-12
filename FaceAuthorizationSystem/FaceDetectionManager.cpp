@@ -40,7 +40,7 @@ bool FaceDetectionManager::verifyEyes(Mat& frame)
 	Mat faceFrame = frame.clone(); 
 	imageManager->convertToGrayScale(faceFrame);
 	imageManager->equalizeHistogram(faceFrame);
-	eyesCascade->detectMultiScale(faceFrame, eyes, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
+	eyesCascade->detectMultiScale(faceFrame, eyes, 1.1, 4, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
 	if (eyes.size() == 1) {
 		// warunek na znalezienia prawego oka
 		if ((face.width/2) > (eyes[0].x + eyes[0].width / 2)) {

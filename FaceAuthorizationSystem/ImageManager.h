@@ -27,6 +27,9 @@ public:
 
 	Mat resizeImage(Mat& image, cv::Size size = cv::Size(92, 112));
 
+	bool compareHistograms(Mat a, Mat b);
+
+	void processForHistogramComparison(Mat& mat);
 
 private:
 	PhotoDAO* photoDAO;

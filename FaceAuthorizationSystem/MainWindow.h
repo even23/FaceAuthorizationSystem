@@ -114,6 +114,7 @@ namespace FaceAuthorizationSystem {
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Button^  newAccountButton;
 	private: System::Windows::Forms::Button^  verifyButton;
+	private: System::Windows::Forms::CheckBox^  verifyCheckBox;
 
 
 
@@ -197,6 +198,7 @@ namespace FaceAuthorizationSystem {
 			this->activeUserLabel = (gcnew System::Windows::Forms::Label());
 			this->activeUserLoginLabel = (gcnew System::Windows::Forms::Label());
 			this->photoBox = (gcnew System::Windows::Forms::PictureBox());
+			this->verifyCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->tabControl1->SuspendLayout();
 			this->welcomeTab->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -347,6 +349,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// loginTab
 			// 
+			this->loginTab->Controls->Add(this->verifyCheckBox);
 			this->loginTab->Controls->Add(this->verifyButton);
 			this->loginTab->Controls->Add(this->loginButton);
 			this->loginTab->Controls->Add(this->passwordTextBox);
@@ -705,6 +708,18 @@ namespace FaceAuthorizationSystem {
 			this->photoBox->TabIndex = 20;
 			this->photoBox->TabStop = false;
 			// 
+			// verifyCheckBox
+			// 
+			this->verifyCheckBox->AutoSize = true;
+			this->verifyCheckBox->Checked = true;
+			this->verifyCheckBox->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->verifyCheckBox->Location = System::Drawing::Point(26, 172);
+			this->verifyCheckBox->Name = L"verifyCheckBox";
+			this->verifyCheckBox->Size = System::Drawing::Size(122, 17);
+			this->verifyCheckBox->TabIndex = 18;
+			this->verifyCheckBox->Text = L"Wymagaj weryfikacji";
+			this->verifyCheckBox->UseVisualStyleBackColor = true;
+			// 
 			// MainWindow
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -811,7 +826,7 @@ namespace FaceAuthorizationSystem {
 	private: System::Void loginButton_Click(System::Object^  sender, System::EventArgs^  e) {
 		string login = Utils::string2Char(loginTextBox->Text);
 		string typedPassword = Utils::string2Char(passwordTextBox->Text);
-		if (typedPassword != "" || app->getVerified()) {
+		if (typedPassword != "" || (app->getTakenPhoto()->rows != 0 && (app->getVerified() || verifyCheckBox->Checked == false))) {
 			app->setVerified(false);
 			verifyButton->Enabled = false;
 			if (app->login(login, typedPassword)) {			
@@ -840,14 +855,21 @@ namespace FaceAuthorizationSystem {
 				this->tabControl1->SelectedTab = this->accountTab;
 			}
 			else {
-				message = "Nie uda³o siê zalogowaæ do systemu.";
-				this->passwordTextBox->Clear();
-				result = MessageBox::Show(this, message, caption, buttons);
+				failLogin();
 			}
 		}
-		else {
+		else if (app->getTakenPhoto()->rows != 0 && verifyCheckBox->Checked == true) {
 			verifyHuman();
 		}
+		else {
+			failLogin();
+		}
+
+	}
+	private: System::Void failLogin() {
+		message = "Nie uda³o siê zalogowaæ do systemu.";
+		this->passwordTextBox->Clear();
+		result = MessageBox::Show(this, message, caption, buttons);
 
 	}
 	private: System::Void verifyHuman() {
