@@ -35,6 +35,10 @@ public:
 	void removePhoto();
 	void removeUser();
 
+	bool getVerified() { return verified; }
+	void setVerified(bool a) { verified = a; }
+
+	bool verifyHuman();
 private:
 	//VideoCapture capture;
 
@@ -48,5 +52,6 @@ private:
 	VideoCaptureManager^ videoCaptureManager;
 	Mat* takenPhoto;
 	Mat* photoBoxImage;
+	bool verified;
 };
 

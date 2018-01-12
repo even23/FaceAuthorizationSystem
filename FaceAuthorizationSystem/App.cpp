@@ -7,13 +7,14 @@ App::App()
 	userDao = new UserDAO();
 	photoDao = new PhotoDAO();
 	imageManager = new ImageManager(photoDao);
-	faceDetectionManager = new FaceDetectionManager();
+	faceDetectionManager = new FaceDetectionManager(imageManager);
 	videoCaptureManager = gcnew VideoCaptureManager(faceDetectionManager, imageManager);
 	faceRecognitionManager = new FaceRecognitionManager(userDao, photoDao, imageManager);
 	//activeUser =  &(*userDao->getUsers()->begin());
 	takenPhoto = new Mat();
 	photoBoxImage = new Mat();
 	trainRecognizer();
+	verified = false;
 }
 
 
@@ -187,4 +188,18 @@ void App::removeUser()
 		faceRecognitionManager->removeUserImages(id);
 	}
 	delete user;
+}
+
+bool App::verifyHuman()
+{
+	Mat frame = videoCaptureManager->getCurrentFrame()->clone();
+	if (faceDetectionManager->verifyEyes(frame)) {
+		//if (imageManager->verifyHistograms(frame, takenPhoto)) {
+
+		//}
+		verified = true;
+		return true;
+	}
+	verified = false;
+	return false;
 }

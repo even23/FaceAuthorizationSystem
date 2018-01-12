@@ -113,6 +113,7 @@ namespace FaceAuthorizationSystem {
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Button^  newAccountButton;
+	private: System::Windows::Forms::Button^  verifyButton;
 
 
 
@@ -159,6 +160,7 @@ namespace FaceAuthorizationSystem {
 			this->grayScaleCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->loginTab = (gcnew System::Windows::Forms::TabPage());
+			this->verifyButton = (gcnew System::Windows::Forms::Button());
 			this->loginButton = (gcnew System::Windows::Forms::Button());
 			this->passwordTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->passwordLabel = (gcnew System::Windows::Forms::Label());
@@ -345,6 +347,7 @@ namespace FaceAuthorizationSystem {
 			// 
 			// loginTab
 			// 
+			this->loginTab->Controls->Add(this->verifyButton);
 			this->loginTab->Controls->Add(this->loginButton);
 			this->loginTab->Controls->Add(this->passwordTextBox);
 			this->loginTab->Controls->Add(this->passwordLabel);
@@ -357,6 +360,17 @@ namespace FaceAuthorizationSystem {
 			this->loginTab->TabIndex = 1;
 			this->loginTab->Text = L"Logowanie";
 			this->loginTab->UseVisualStyleBackColor = true;
+			// 
+			// verifyButton
+			// 
+			this->verifyButton->Enabled = false;
+			this->verifyButton->Location = System::Drawing::Point(109, 207);
+			this->verifyButton->Name = L"verifyButton";
+			this->verifyButton->Size = System::Drawing::Size(150, 40);
+			this->verifyButton->TabIndex = 17;
+			this->verifyButton->Text = L"Weryfikuj";
+			this->verifyButton->UseVisualStyleBackColor = true;
+			this->verifyButton->Click += gcnew System::EventHandler(this, &MainWindow::verifyButton_Click);
 			// 
 			// loginButton
 			// 
@@ -797,37 +811,52 @@ namespace FaceAuthorizationSystem {
 	private: System::Void loginButton_Click(System::Object^  sender, System::EventArgs^  e) {
 		string login = Utils::string2Char(loginTextBox->Text);
 		string typedPassword = Utils::string2Char(passwordTextBox->Text);
-		if (app->login(login, typedPassword)) {
-			User* user = app->getActiveUser();
-			message = Utils::char2String(format("Zalogowa³eœ siê do systemu jako %s %s.", user->getName().c_str(), user->getSurname().c_str()));
-			this->accountTab->Text = "Moje konto";
-			this->loginButton->Enabled = false;
-			this->loginTextBox->Clear();
-			this->loginTab->Enabled = false;
+		if (typedPassword != "" || app->getVerified()) {
+			app->setVerified(false);
+			verifyButton->Enabled = false;
+			if (app->login(login, typedPassword)) {			
+				User* user = app->getActiveUser();
+				message = Utils::char2String(format("Zalogowa³eœ siê do systemu jako %s %s.", user->getName().c_str(), user->getSurname().c_str()));
+				this->accountTab->Text = "Moje konto";
+				this->loginButton->Enabled = false;
+				this->loginTextBox->Clear();
+				this->loginTab->Enabled = false;
 
-			this->loginAccountTextBox->Text = Utils::char2String(user->getLogin());
-			this->passwordAccountTextBox->Text = Utils::char2String(user->getPassword());
-			this->nameTextBox->Text = Utils::char2String(user->getName());
-			this->surnameTextBox->Text = Utils::char2String(user->getSurname());
+				this->loginAccountTextBox->Text = Utils::char2String(user->getLogin());
+				this->passwordAccountTextBox->Text = Utils::char2String(user->getPassword());
+				this->nameTextBox->Text = Utils::char2String(user->getName());
+				this->surnameTextBox->Text = Utils::char2String(user->getSurname());
 
-			this->reloadButton->Visible = true;
-			this->saveAccount->Visible = true;
-			this->deleteAccount->Visible = true;
-			this->logoutButton->Visible = true;
+				this->reloadButton->Visible = true;
+				this->saveAccount->Visible = true;
+				this->deleteAccount->Visible = true;
+				this->logoutButton->Visible = true;
 
-			this->newAccountButton->Visible = false;
+				this->newAccountButton->Visible = false;
 
-			this->activeUserLoginLabel->Text = Utils::char2String(user->getLogin());
-			this->passwordTextBox->Clear();
-			result = MessageBox::Show(this, message, caption, buttons);
-			this->tabControl1->SelectedTab = this->accountTab;
+				this->activeUserLoginLabel->Text = Utils::char2String(user->getLogin());
+				this->passwordTextBox->Clear();
+				result = MessageBox::Show(this, message, caption, buttons);
+				this->tabControl1->SelectedTab = this->accountTab;
+			}
+			else {
+				message = "Nie uda³o siê zalogowaæ do systemu.";
+				this->passwordTextBox->Clear();
+				result = MessageBox::Show(this, message, caption, buttons);
+			}
 		}
 		else {
-			message = "Nie uda³o siê zalogowaæ do systemu.";
-			this->passwordTextBox->Clear();
-			result = MessageBox::Show(this, message, caption, buttons);
+			verifyHuman();
 		}
 
+	}
+	private: System::Void verifyHuman() {
+		message = "W celu weryfikacji czy jesteœ cz³owiekiem wykonaj 3 kroki: \n" +
+			"       1. W³¹cz kamerê. \n" +
+			"       2. Zamknij lewe oko. \n" + 
+			"       3. Wciœnij przycisk Weryfikuj.";
+		result = MessageBox::Show(this, message, caption, buttons);
+		this->verifyButton->Enabled = true;
 	}
 	private: System::Void deletePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
 		app->removePhoto();
@@ -957,6 +986,11 @@ private: System::Void deleteAccount_Click(System::Object^  sender, System::Event
 		app->removeUser();
 	}
 	logoutButton_Click(sender, e);
+}
+private: System::Void verifyButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (app->verifyHuman()) {
+		loginButton_Click(sender, e);
+	}
 }
 };
 }

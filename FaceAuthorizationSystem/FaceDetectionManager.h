@@ -1,6 +1,8 @@
 #pragma once
 #include "opencv2/objdetect.hpp"
 
+#include "ImageManager.h"
+
 #include <iostream>
 #include <stdio.h>
 
@@ -15,8 +17,9 @@ class FaceDetectionManager
 public:
 	// Œcie¿ka do kaskady klasyfikatorów cech Haaro-podobnych do wykrywania twarzy.
 	static cv::String FACE_CASCADE_NAME;
+	static cv::String EYES_CASCADE_NAME;
 
-	FaceDetectionManager();
+	FaceDetectionManager(ImageManager* imageManager);
 	~FaceDetectionManager();
 
 	// Funkcja zwracaj¹ca znalezione na obrazie twarze w postaci wektora prostok¹tów.
@@ -27,9 +30,16 @@ public:
 		return faces;
 	}
 
+	bool verifyEyes(Mat& frame);
+
 private:
+	ImageManager* imageManager;
+
 	// Klasyfikator twarzy
 	Ptr<CascadeClassifier> faceCascade;
+
+	// Klasyfikator oczu
+	Ptr<CascadeClassifier> eyesCascade;
 
 	// Wykryte twarze
 	Ptr<vector<Rect>> faces;
