@@ -24,6 +24,7 @@ public:
 
 	void addPhoto(int);
 	string addPhoto(User* user);
+	void removeUserPhotos(int user_id);
 
 private:
 	int nextPhotoId;

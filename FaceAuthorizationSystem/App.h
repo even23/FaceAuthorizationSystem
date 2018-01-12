@@ -33,6 +33,7 @@ public:
 	UserDAO* getUserDAO() { return userDao; }
 
 	void removePhoto();
+	void removeUser();
 
 private:
 	//VideoCapture capture;

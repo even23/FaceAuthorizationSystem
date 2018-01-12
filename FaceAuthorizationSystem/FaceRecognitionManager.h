@@ -34,6 +34,8 @@ public:
 	void read_csv(vector<Mat>& images, vector<int>& labels, const string& filename = TRAINING_FILENAME, char separator = ';');
 	void update();
 
+	void removeUserImages(int user_id);
+
 	void test();
 	void computeResults(Ptr<StandardCollector> collector1);
 

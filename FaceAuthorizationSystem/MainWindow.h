@@ -164,11 +164,6 @@ namespace FaceAuthorizationSystem {
 			this->passwordLabel = (gcnew System::Windows::Forms::Label());
 			this->loginTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->loginLabel = (gcnew System::Windows::Forms::Label());
-			this->infoTab = (gcnew System::Windows::Forms::TabPage());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->helpTab = (gcnew System::Windows::Forms::TabPage());
 			this->accountTab = (gcnew System::Windows::Forms::TabPage());
 			this->newAccountButton = (gcnew System::Windows::Forms::Button());
 			this->reloadButton = (gcnew System::Windows::Forms::Button());
@@ -183,6 +178,11 @@ namespace FaceAuthorizationSystem {
 			this->loginAccountTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->loginAccountLabel = (gcnew System::Windows::Forms::Label());
 			this->logoutButton = (gcnew System::Windows::Forms::Button());
+			this->infoTab = (gcnew System::Windows::Forms::TabPage());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->helpTab = (gcnew System::Windows::Forms::TabPage());
 			this->deletePhotoButton = (gcnew System::Windows::Forms::Button());
 			this->takePhotoButton = (gcnew System::Windows::Forms::Button());
 			this->savePhotoButton = (gcnew System::Windows::Forms::Button());
@@ -200,8 +200,8 @@ namespace FaceAuthorizationSystem {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->cameraTab->SuspendLayout();
 			this->loginTab->SuspendLayout();
-			this->infoTab->SuspendLayout();
 			this->accountTab->SuspendLayout();
+			this->infoTab->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider3))->BeginInit();
@@ -401,54 +401,6 @@ namespace FaceAuthorizationSystem {
 			this->loginLabel->TabIndex = 10;
 			this->loginLabel->Text = L"Nazwa u¿ytkownika:";
 			// 
-			// infoTab
-			// 
-			this->infoTab->Controls->Add(this->label7);
-			this->infoTab->Controls->Add(this->label6);
-			this->infoTab->Controls->Add(this->label5);
-			this->infoTab->Location = System::Drawing::Point(4, 22);
-			this->infoTab->Name = L"infoTab";
-			this->infoTab->Size = System::Drawing::Size(368, 327);
-			this->infoTab->TabIndex = 3;
-			this->infoTab->Text = L"Info";
-			this->infoTab->UseVisualStyleBackColor = true;
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(19, 67);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(142, 13);
-			this->label7->TabIndex = 2;
-			this->label7->Text = L"Windows Forms CLR Project";
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(19, 40);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(95, 13);
-			this->label6->TabIndex = 1;
-			this->label6->Text = L"Visual Studio 2015";
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(19, 13);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(115, 13);
-			this->label5->TabIndex = 0;
-			this->label5->Text = L"OpenCV Version: 3.3.1";
-			// 
-			// helpTab
-			// 
-			this->helpTab->Location = System::Drawing::Point(4, 22);
-			this->helpTab->Name = L"helpTab";
-			this->helpTab->Size = System::Drawing::Size(368, 327);
-			this->helpTab->TabIndex = 4;
-			this->helpTab->Text = L"Pomoc";
-			this->helpTab->UseVisualStyleBackColor = true;
-			// 
 			// accountTab
 			// 
 			this->accountTab->Controls->Add(this->newAccountButton);
@@ -502,6 +454,7 @@ namespace FaceAuthorizationSystem {
 			this->deleteAccount->Text = L"Usuñ konto";
 			this->deleteAccount->UseVisualStyleBackColor = true;
 			this->deleteAccount->Visible = false;
+			this->deleteAccount->Click += gcnew System::EventHandler(this, &MainWindow::deleteAccount_Click);
 			// 
 			// saveAccount
 			// 
@@ -592,6 +545,54 @@ namespace FaceAuthorizationSystem {
 			this->logoutButton->UseVisualStyleBackColor = true;
 			this->logoutButton->Visible = false;
 			this->logoutButton->Click += gcnew System::EventHandler(this, &MainWindow::logoutButton_Click);
+			// 
+			// infoTab
+			// 
+			this->infoTab->Controls->Add(this->label7);
+			this->infoTab->Controls->Add(this->label6);
+			this->infoTab->Controls->Add(this->label5);
+			this->infoTab->Location = System::Drawing::Point(4, 22);
+			this->infoTab->Name = L"infoTab";
+			this->infoTab->Size = System::Drawing::Size(368, 327);
+			this->infoTab->TabIndex = 3;
+			this->infoTab->Text = L"Info";
+			this->infoTab->UseVisualStyleBackColor = true;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(19, 67);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(142, 13);
+			this->label7->TabIndex = 2;
+			this->label7->Text = L"Windows Forms CLR Project";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(19, 40);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(95, 13);
+			this->label6->TabIndex = 1;
+			this->label6->Text = L"Visual Studio 2015";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(19, 13);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(115, 13);
+			this->label5->TabIndex = 0;
+			this->label5->Text = L"OpenCV Version: 3.3.1";
+			// 
+			// helpTab
+			// 
+			this->helpTab->Location = System::Drawing::Point(4, 22);
+			this->helpTab->Name = L"helpTab";
+			this->helpTab->Size = System::Drawing::Size(368, 327);
+			this->helpTab->TabIndex = 4;
+			this->helpTab->Text = L"Pomoc";
+			this->helpTab->UseVisualStyleBackColor = true;
 			// 
 			// deletePhotoButton
 			// 
@@ -721,10 +722,10 @@ namespace FaceAuthorizationSystem {
 			this->cameraTab->PerformLayout();
 			this->loginTab->ResumeLayout(false);
 			this->loginTab->PerformLayout();
-			this->infoTab->ResumeLayout(false);
-			this->infoTab->PerformLayout();
 			this->accountTab->ResumeLayout(false);
 			this->accountTab->PerformLayout();
+			this->infoTab->ResumeLayout(false);
+			this->infoTab->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider3))->EndInit();
@@ -817,13 +818,16 @@ namespace FaceAuthorizationSystem {
 			this->newAccountButton->Visible = false;
 
 			this->activeUserLoginLabel->Text = Utils::char2String(user->getLogin());
+			this->passwordTextBox->Clear();
+			result = MessageBox::Show(this, message, caption, buttons);
+			this->tabControl1->SelectedTab = this->accountTab;
 		}
 		else {
 			message = "Nie uda³o siê zalogowaæ do systemu.";
+			this->passwordTextBox->Clear();
+			result = MessageBox::Show(this, message, caption, buttons);
 		}
-		this->passwordTextBox->Clear();
-		result = MessageBox::Show(this, message, caption, buttons);
-		this->tabControl1->SelectedTab = this->accountTab;
+
 	}
 	private: System::Void deletePhotoButton_Click(System::Object^  sender, System::EventArgs^  e) {
 		app->removePhoto();
@@ -943,6 +947,16 @@ private: System::Void newAccountButton_Click(System::Object^  sender, System::Ev
 		result = MessageBox::Show(this, message, caption, buttons);
 		this->tabControl1->SelectedTab = this->welcomeTab;
 	}
+}
+private: System::Void deleteAccount_Click(System::Object^  sender, System::EventArgs^  e) {
+	System::String^ caption = "Ostrze¿enie";
+	MessageBoxButtons buttons = MessageBoxButtons::YesNo;
+	message = "Czy na pewno chcesz usun¹æ swoje konto?";
+	result = MessageBox::Show(this, message, caption, buttons);
+	if (result == System::Windows::Forms::DialogResult::Yes) {
+		app->removeUser();
+	}
+	logoutButton_Click(sender, e);
 }
 };
 }

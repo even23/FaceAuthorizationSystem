@@ -175,3 +175,16 @@ void App::removePhoto()
 		takenPhoto->release();
 	}
 }
+
+void App::removeUser()
+{
+	User* user = activeUser;
+
+	userDao->removeUser(user);
+	if (user->getPhotos() > 0) {
+		int id = user->getId();
+		photoDao->removeUserPhotos(id);
+		faceRecognitionManager->removeUserImages(id);
+	}
+	delete user;
+}

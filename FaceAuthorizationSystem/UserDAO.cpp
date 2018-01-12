@@ -75,8 +75,27 @@ User* UserDAO::getUserByLogin(string login) {
 
 User* UserDAO::addUser(string name, string surname, string login, string password)
 {
-	int id = users->back()->getId();
-	User* user = new User(id + 1, name, surname, login, password, 0);
+	int id = users->back()->getId() + 1;
+	User* user = new User(id, name, surname, login, password, 0);
 	users->push_back(user);
+
+	string folderCreateCommand = "mkdir " + PhotoDAO::PHOTO_DIR + to_string(user->getId());
+	system(folderCreateCommand.c_str());
+
+	write_csv();
+
 	return user;
+}
+
+void UserDAO::removeUser(User * _user)
+{
+	for (vector<User*>::iterator user = users->begin(); user != users->end(); ++user) {
+		if ((*user) == _user) {
+			users->erase(user);
+			break;
+		}
+	}
+	write_csv();
+	string folderCreateCommand = "rmdir /s /q " + PhotoDAO::PHOTO_DIR + to_string(_user->getId());
+	system(folderCreateCommand.c_str());
 }

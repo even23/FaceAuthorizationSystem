@@ -1,6 +1,7 @@
 #pragma once
 #include "User.h"
 #include "DAO.h"
+#include "PhotoDAO.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -22,6 +23,7 @@ public:
 	vector<User*>* getUsers() { return users; };
 
 	User* addUser(string name, string surname, string login, string password);
+	void removeUser(User* user);
 
 
 

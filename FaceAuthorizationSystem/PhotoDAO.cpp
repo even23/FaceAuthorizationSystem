@@ -70,9 +70,23 @@ string PhotoDAO::addPhoto(User* user)
 	if (user != nullptr) {
 		photos->push_back(new Photo(nextPhotoId, user->getId()));
 		user->addPhoto();
+		write_csv();
 		return to_string(nextPhotoId++) + Photo::FILE_EXTENSION;
 	}
 	else {
 		return to_string(nextTempPhotoId++) + Photo::FILE_EXTENSION;
 	}
+}
+
+void PhotoDAO::removeUserPhotos(int user_id)
+{
+	vector<Photo*>* newPhotos = new vector<Photo*>();
+	for (vector<Photo*>::iterator photo = photos->begin(); photo != photos->end(); photo++) {
+		if ((*photo)->getUserId() != user_id) {
+			newPhotos->push_back(*photo);
+		}
+	}
+	delete photos;
+	photos = newPhotos;
+	write_csv();
 }

@@ -35,8 +35,8 @@ bool ImageManager::processAndSaveImage(Mat& image, User* user, string& filename,
 	//int userId = user->getId();
 	//string path = directoryPath + to_string(userId);
 
-	//string folderCreateCommand = "mkdir " + path;
-	//system(folderCreateCommand.c_str());
+	string folderCreateCommand = "mkdir " + path;
+	system(folderCreateCommand.c_str());
 
 	Mat result = processImage(image);
 	

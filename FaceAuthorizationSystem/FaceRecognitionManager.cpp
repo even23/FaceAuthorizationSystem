@@ -223,6 +223,24 @@ void FaceRecognitionManager::update()
 	LBPHFaceRecognizer->update(image, label);
 }
 
+void FaceRecognitionManager::removeUserImages(int user_id)
+{
+	vector<Mat>* newImages = new vector<Mat>();
+	vector<int>* newLabels = new vector<int>();
+	for (int i = 0; i < labels->size(); i++) {
+		int id = labels->at(i);
+		if (id != user_id) {
+			newLabels->push_back(id);
+			newImages->push_back(images->at(i));
+		}
+	}
+	delete images;
+	delete labels;
+	images = newImages;
+	labels = newLabels;
+	trainRecognizer();
+}
+
 void FaceRecognitionManager::test()
 {
 	file.open("test\\test8.csv");
