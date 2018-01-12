@@ -30,7 +30,7 @@ public:
 		return faces;
 	}
 
-	bool verifyEyes(Mat& frame);
+	int verifyEyes(Mat& frame);
 
 private:
 	ImageManager* imageManager;

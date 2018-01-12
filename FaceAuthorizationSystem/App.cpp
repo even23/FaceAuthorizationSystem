@@ -190,15 +190,22 @@ void App::removeUser()
 	delete user;
 }
 
-bool App::verifyHuman()
+int App::verifyHuman()
 {
 	Mat frame = videoCaptureManager->getCurrentFrame()->clone();
-	if (faceDetectionManager->verifyEyes(frame) == 1) {
+	int result = faceDetectionManager->verifyEyes(frame);
+	if (result == 1) {
 		if (imageManager->compareHistograms(frame, *takenPhoto)) {
 			verified = true;
-			return true;
+			return 1;
+		}
+		else {
+			return 3;
 		}
 	}
-	verified = false;
-	return false;
+	else {
+		verified = false;
+		return result;
+	}
+
 }

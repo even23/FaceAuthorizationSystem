@@ -31,7 +31,7 @@ Ptr<vector<Rect>>& FaceDetectionManager::detectAndSaveFaces(Mat frame)
 	return faces;
 }
 
-bool FaceDetectionManager::verifyEyes(Mat& frame)
+int FaceDetectionManager::verifyEyes(Mat& frame)
 {
 	vector<Rect> faces = detectFaces(frame);
 	vector<Rect> eyes;
@@ -44,8 +44,16 @@ bool FaceDetectionManager::verifyEyes(Mat& frame)
 	if (eyes.size() == 1) {
 		// warunek na znalezienia prawego oka
 		if ((face.width/2) > (eyes[0].x + eyes[0].width / 2)) {
-			return true;
+			return 1;
+		}
+		else {
+			return -1;
 		}
 	}
-	return false;
+	else if (eyes.size() == 0) {
+		return 0;
+	}
+	else {
+		return 2;
+	}
 }

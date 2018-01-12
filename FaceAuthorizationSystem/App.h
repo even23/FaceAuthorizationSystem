@@ -38,7 +38,7 @@ public:
 	bool getVerified() { return verified; }
 	void setVerified(bool a) { verified = a; }
 
-	bool verifyHuman();
+	int verifyHuman();
 private:
 	//VideoCapture capture;
 

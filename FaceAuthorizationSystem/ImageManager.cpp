@@ -127,7 +127,7 @@ bool ImageManager::compareHistograms(Mat a, Mat b)
 
 	double result = compareHist(xHist, yHist, CV_COMP_CHISQR);
 
-	if (result < 100) {
+	if (result < 300) {
 		return true;
 	}
 	else {

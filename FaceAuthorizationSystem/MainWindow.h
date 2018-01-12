@@ -1010,8 +1010,27 @@ private: System::Void deleteAccount_Click(System::Object^  sender, System::Event
 	logoutButton_Click(sender, e);
 }
 private: System::Void verifyButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (app->verifyHuman()) {
+	int option = app->verifyHuman();
+	System::String^ caption = "B³¹d";
+	switch (option) {
+	case 1: 
 		loginButton_Click(sender, e);
+		break;
+
+	case -1:
+		message = "Zamkniêto prawe oko.";
+		result = MessageBox::Show(this, message, caption, buttons);
+		break;
+
+	case 2:
+		message = "Nie zamkniêto lewego oka.";
+		result = MessageBox::Show(this, message, caption, buttons);
+		break;
+
+	case 3:
+		message = "Zdjêcie weryfikacyjne i autoryzacyjne nie zosta³y wykonane w tych samych warunkach.";
+		result = MessageBox::Show(this, message, caption, buttons);
+		break;
 	}
 }
 };
